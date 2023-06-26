@@ -1,0 +1,25 @@
+Exercises:
+	1. airline reservation system
+			flight 
+					no, airline_name, source, destination, departure_time, arrival_time,
+					travel_date, seats_capacity, ticket_price_per_seat
+			admin app
+				flight management (add fligh, change the price, etc)
+			customer app 
+				searches the flight based travel date, source, destination, price, departure_time 
+				pick the flight 
+				go for booking 
+						number of passengers, details
+				payment 
+				print tickets 
+	2. cab booking (OLA, UBER)
+			driver app 
+				driver management 
+				cab management 
+				driver's bookings, on-trip 
+			customer app 
+				allowed to search cab near by his/her place 
+				list of cabs allowed to display 
+				system will send the near by and no-on-trip and avaialble driver 
+				
+Design the table for the above apps. 				
