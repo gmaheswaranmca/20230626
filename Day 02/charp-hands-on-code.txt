@@ -1,0 +1,54 @@
+C#
+------------------------------------
+	C# program 
+	
+	
+	-> Translation (C# compiler) 
+	
+	
+	IL Code ( The code that may run in CLR - Common Language Runtime) 
+	
+	
+	-> Translation (interpreter)
+	
+	platform/machine code 
+------------------------------------	
+Common Language:
+		Interoperability 
+		Common Type System 
+------------------------------------	
+C# Programming Features: 
+	1. computing / data processing 
+	Declaration Statement 
+		Data Types 
+		Variables / Functions - Identifiers 
+	Assignment Statement 
+	Control Statement 
+		Conditional 
+			if..else 
+			switch..case..default 
+		Loop / Itermation 
+			for..
+			while 
+			do..while 
+	Functions / Methods - Modularization - Procedural Oriented Programmming (Tasks)
+	OOP - see problem as inter connection many real time objects 
+						- Object Oriented Programming 
+	collections
+	exception handling 
+	
+	delegates, events, lambda 
+------------------------------------
+ static void Main()
+	{
+			Console.WriteLine("Enter a number:");
+			int number = int.Parse(Console.ReadLine());
+
+			int square = number * number;
+
+			Console.WriteLine("Square of {0} is {1}", number, square);
+			Console.ReadKey();
+	}	
+------------------------------------				
+			
+

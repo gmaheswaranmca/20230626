@@ -52,10 +52,88 @@ booking : id, reference_number, customer_id, number_of_passengers, bill_amount
 booking_passenger: booking_id, serial_number, passenger_name, age, gender, identity_details, ticket_number,
 seat_number
 
+
 ------------------------------------------------------------------------------------
+Priyanka version:
+------------------------------------------------------------------------------------
+	Create table flight( num int, airline_name varchar(255),
+	sources Varchar(255),
+	destination varchar(255),
+	departure_time Varchar(255),
+	arrival_time varchar(255),
+	travel_date date,
+	seats_capacity int,
+	ticket_price_per_seat varchar(255)
+	);
+
+	select * from flight;
+
+	Insert into flight ( num, airline_name, sources, destination, departure_time, arrival_time, travel_date, seats_capacity, ticket_price_per_seat)
+	values ('10200', 'Air India', 'Bangalore', 'Chennai', '18:00', '17:00', '2023-06-27', 175, 4500);
+	Insert into flight ( num, airline_name, sources, destination, departure_time, arrival_time, travel_date, seats_capacity, ticket_price_per_seat)
+	values('30100', 'Indigo', 'Bangalore', 'Chennai', '20:00', '19:00', '2023-06-27', 150, 4700);
+	Insert into flight ( num, airline_name, sources, destination, departure_time, arrival_time, travel_date, seats_capacity, ticket_price_per_seat) values('10201', 'Air India', 'Chennai', 'Bangalore', '18:00', '17:00', '2023-06-28', 175, 5000);
+	Insert into flight ( num, airline_name, sources, destination, departure_time, arrival_time, travel_date, seats_capacity, ticket_price_per_seat)
+	values('30101', 'Indigo', 'Chennai', 'Bangalore','20:00', '19:00', '2023-06-28', 150, 6050);
+
+
+	create table admin ( id int not null,
+	username varchar(255) not null,
+	password Varchar(300) not null,
+	fullname varchar(255) not null);
+
+	select * from admin
+
+	Insert into admin ( id, username, password, fullname) values (1, 'shashank', '1234', 'Shashank.B')
+	Insert into admin ( id, username, password, fullname) values (2, 'priya', '1234', 'Priyanka.B')
+	Insert into admin ( id, username, password, fullname) values (3, 'boomika', '1234', 'Boomika.P');
+
+	create table customer (customer_id int primary key not null,
+	names varchar(255) not null,
+	phone_number bigint not null,
+	email_id varchar(255) not null,
+	username varchar(255) not null,
+	password varchar(255) not null,
+	person_identity_details varchar(255) not null);
+
+	select * from customer;
+	Insert into customer (customer_id, names, phone_number, email_id, username, password, person_identity_details) values (1, 'Maheswaran', '9750592159', 'gmaheswaranmca@gmail.com', 'gmaheswaran', '4321', 'xxxxyyyzzz')
+
+
+
+	SELECT f.*
+	FROM flight f
+	WHERE f.sources='Chennai' and f.destination='Bangalore';
+
+	drop table booking;
+	create table booking (booking_id int identity(1,1) primary key not null,
+	reference_number varchar(255) not null,
+	customer_id int not null,
+	constraint Fk_booking_customer_customer_id foreign key (customer_id) references customer(customer_id),
+	number_of_passengers int not null,
+	bill_amount money not null
+
+	);
+
+	select * from booking;
+
+
+
+	create table booking_passenger ( booking_id int not null,
+	constraint Fk_booking_passanger_booking_booking_id foreign key (booking_id) references booking(booking_id),
+	serial_number int identity(1,1),
+	passenger_name varchar(255)not null,
+	age int not null,
+	gender varchar(255)not null,
+	identity_details varchar(255)not null,
+	ticket_number varchar(255)not null,
+	seat_number varchar(255),
+	constraint Pk_booking_passanger_booking_id_serial_number primary key (booking_id,serial_number));
+
+
+	select * from booking_passenger;				
 				
-				
-				
+------------------------------------------------------------------------------------				
 	2. cab booking (OLA, UBER)
 			driver app 
 				driver management 
