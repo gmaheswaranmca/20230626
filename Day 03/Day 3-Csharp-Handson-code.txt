@@ -4,6 +4,8 @@
 4. Find smallest age and largest age of given two ages. By refactoring previous code (finding smallest age) to the function, call the function.
 Even you define the function for finding largest age.
 5. Find smallest of three salaries.
+6. Find smallest, largest of three salaries 
+using functions. Convert the if statement as conditional operator.
 
 
 
@@ -183,7 +185,10 @@ class Program
 
 
 
+6. Find smallest, largest of three salaries 
+using functions. Convert the if statement as conditional operator.
 
+Programmer's Task
 
 
 
