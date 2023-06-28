@@ -3,7 +3,7 @@
 3. Find smallest age of given two ages 
 4. Find smallest age and largest age of given two ages. By refactoring previous code (finding smallest age) to the function, call the function.
 Even you define the function for finding largest age.
-5. 
+5. Find smallest of three salaries.
 
 
 
@@ -149,7 +149,37 @@ class Program
 }
 
 
+5. Find smallest of three salaries.
+class Program
+{
+		static void Main(string[] args)
+		{
+				float firstSalary = 4500;
+				float secondSalary = 5000;
+				float thirdSalary = 3000;
 
+				float smallestSalary = 0;
+
+				if(firstSalary < secondSalary && firstSalary < thirdSalary)
+				{
+						smallestSalary = firstSalary;
+				}
+				else if(secondSalary < thirdSalary)
+				{
+						smallestSalary = secondSalary;
+				}
+				else
+				{
+						smallestSalary = thirdSalary;
+				}
+
+				Console.WriteLine("First Salary : {0}", firstSalary);
+				Console.WriteLine("Second Salary : {0}", secondSalary);
+				Console.WriteLine("Third Salary : {0}", thirdSalary);
+				Console.WriteLine("Smallest Salary : {0}", smallestSalary);
+
+				Console.ReadKey();
+		}
 
 
 
