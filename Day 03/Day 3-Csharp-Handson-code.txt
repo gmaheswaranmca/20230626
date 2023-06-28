@@ -278,7 +278,61 @@ static void Main(string[] args)
 			Console.ReadKey();
 	}
 
+#C using function 
+internal static string findDayName(int dayNumber)
+		{
+				string dayName = "";
 
+				switch (dayNumber)
+				{
+						case 1:
+								dayName = "Monday";
+								break;
+						case 2:
+								dayName = "Tuesday";
+								break;
+						case 3:
+								dayName = "Wednesday";
+								break;
+						case 4:
+								dayName = "Thursday";
+								break;
+						case 5:
+								dayName = "Friday";
+								break;
+						case 6:
+								dayName = "Saturday";
+								break;
+						case 7:
+								dayName = "Sunday";
+								break;
+						default:
+								dayName = "Invalid Data";
+								break;
+				}
+				return dayName;
+		}
+}
+class Program
+{
+		static void Main(string[] args)
+		{
+				int dayNumber = 2;
+
+				string dayName = DayName.findDayName(dayNumber);
+
+
+				Console.WriteLine("Day Number : {0}", dayNumber);
+				Console.WriteLine("Day Name : {0}", dayName);
+
+				Console.WriteLine("Day Name : {0}", DayName.findDayName(1));
+				Console.WriteLine("Day Name : {0}", DayName.findDayName(2));
+				Console.WriteLine("Day Name : {0}", DayName.findDayName(3));
+				Console.WriteLine("Day Name : {0}", DayName.findDayName(4));
+
+				Console.ReadKey();
+		}
+}
 
 
 
