@@ -7,8 +7,17 @@ Even you define the function for finding largest age.
 6. Find smallest, largest of three salaries 
 using functions. Convert the if statement as conditional operator.
 7. Find day name for the day number.
+8. Find month name for the month number.
+	Assignment 
+9. To print number between 1 and 5. 	
+10. To print first N odd numbers.
+11. To find sum of digits in a given number. 
+12. To sum the numbers till we get negative number.
 
-
+Assignments:
+13. To print first N prime numbers.
+14. To find number of odd digits, number of event digits in a given number.
+15. To sum the numbers till we get 1000 (STOP).
 
 
 
@@ -335,9 +344,211 @@ class Program
 }
 
 
+* defualt is optional.
+* case expression has to be 
+		integer number 
+		character
+		enumeration type 
+		string 
+
+----string example----
+static void Main(string[] args)
+{
+		string dayName = "Monday";
+		int dayNumber = 0;
+		switch(dayName)
+		{
+				case "Monday":
+						dayNumber = 1;
+						break;
+				case "Tuesday":
+						dayNumber = 2;
+						break;
+				case "Wednesday":
+						dayNumber = 3;
+						break;
+		}
+
+		Console.WriteLine("Day number for {0} is {1}", dayName, dayNumber);
+
+		Console.ReadKey();
+}
+
+8. Find month name for the month number.
+	Assignment 
+	
+Conclusion of the Conditional Control Statements:
+1. if[..else]
+		to pick the choice of code based on conditionals
+2. switch 
+		to pick the choice of code based on 
+		fixed labels 
+3. what is function?
+   why function is?
+	 
+	 -- named code 
+			which takes argument and returns optionally a value
+	 -- modularization 
+			reusability 
+	 -- to adher industry standard: 
+		we may apply
+		"single responsibility principle" 
+		SOLID principles 
+			S - Single Responsibilty Principle 
+			O - .... "Learn By self" 
+			L - .... "Learn By self"
+			I - .... "Learn By self" 
+			D - .... "Learn By self"
+			
+
+Conditional Loop/Iteration Statements:
+-- to repeat the code 
+	for loop 
+	while loop 
+	do..while loop 
+	
+9. To print number between 1 and 5. 	
+#A using for loop 
+static void Main(string[] args)
+{
+		Console.WriteLine("Numbers bt 1 and 5:");
+		for (int I = 1; I <= 5; I++)
+		{
+				Console.Write("{0}, ", I);
+		}
+
+		Console.ReadKey();
+}	
+
+#B using while loop 	
+static void Main(string[] args)
+{
+		Console.WriteLine("Numbers bt 1 and 5:");
+		int I = 1;
+		while (I <= 5)
+		{
+				Console.Write("{0}, ", I);
+				I++;
+		}
+
+		Console.ReadKey();
+}
+
+#B using do..while loop 
+static void Main(string[] args)
+{
+		Console.WriteLine("Numbers bt 1 and 5:");
+		int I = 1;
+		
+		do
+		{
+				Console.Write("{0}, ", I);
+				I++;
+		}
+		while (I <= 5) ;
+
+				Console.ReadKey();
+}	
+
+10. To print first N odd numbers.
+	for 			--- Readble by fellow programmers
+					??? when ??? if number of iterations is fixed 
+	while 
+	do..while 
 
 
+static void Main(string[] args)
+{
+		int N = 25;
+		Console.WriteLine("Odd Numbers:");
+		int term = 1;
+		for(int I=1; I <= N; I++)
+		{
+				Console.Write("{0}, ", term);
+				term = term + 2;
+		}
+		Console.ReadKey();
+}
 
+11. To find sum of digits in a given number. 
+	number = 12 			1 + 2 = 3 
+	number = 123 			1 + 2 + 3 = 6 
+	number = 1234     1 + 2 + 3 + 4 = 10
+	
+	LSD - Least Significant Digit (Unit Digit)
+	12 / 10 -> quotient : 1,remainder: 2
+	1234/10 -> quotient: 123, remainder: 4
+	
+	% gives us remainder -> extract the unit digit  
+	/ gives us quotient  -> removes the unit digit 
+	
+	while loop 
+
+#A without debugging
+static void Main(string[] args)
+{
+	int N = 1234;
+	int sum = 0;                
+
+	int S = N;
+	while (S > 0)               
+	{
+			int digit = S % 10;     
+			sum += digit;               
+			S = S / 10;                
+	}
+
+	Console.WriteLine("Number : {0}", N);
+	Console.WriteLine("Sum of Digits : {0}", sum);
+	Console.ReadKey();
+}	
+	
+#B with debugging (hand-writing)
+static void Main(string[] args)
+{
+	int N = 1234;
+	int sum = 0;                //  0
+
+	int S = N;
+	while (S > 0)               // 1234    123      12          1
+	{
+			int digit = S % 10;     // 4        3       2           1
+			sum += digit;           // 0+4=4    4+3=7   7+2=9       9+1=10    
+			S = S / 10;             // 123      12      1           0
+	}
+
+	Console.WriteLine("Number : {0}", N);
+	Console.WriteLine("Sum of Digits : {0}", sum);
+	Console.ReadKey();
+}
+	
+12. To sum the numbers till we get negative number.
+	10					10
+	20					30 
+	4						34 
+	
+	do..while loop 
+
+* menu driven programming, we may use do..while loop.	
+static void Main(string[] args)
+	{
+			int sum = 0;
+			int number = 0;
+
+			do
+			{
+					Console.Write("Enter a number:");
+					number = int.Parse(Console.ReadLine());
+					if (number >= 0)
+					{
+							sum += number;
+					}
+			} while (number >= 0);
+
+			Console.WriteLine("The sum is {0}", sum);
+
+			Console.ReadKey();
+	}	
 ==================================================
 	1. computing / data processing 
 	Declaration Statement 
