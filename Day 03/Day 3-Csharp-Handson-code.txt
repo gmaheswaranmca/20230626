@@ -1,0 +1,190 @@
+1. Find square of the given number 
+2. Find sum of two salaries 
+3. Find smallest age of given two ages 
+4. Find smallest age and largest age of given two ages. By refactoring previous code (finding smallest age) to the function, call the function.
+Even you define the function for finding largest age.
+5. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Find square of the given number 
+static void Main(string[] args)
+{
+		Console.WriteLine("Enter a number:");
+		int number = int.Parse(Console.ReadLine());
+
+		int square = number * number;
+
+		Console.WriteLine("Square of {0} is {1}", number, square);
+		Console.ReadKey();
+}
+2. Find sum of two salaries 
+static void Main(string[] args)
+{
+		double firstSalary = 5000;
+		double secondSalary = 10000;
+
+		double sum = firstSalary + secondSalary;
+
+		Console.WriteLine("First Salary : {0}", firstSalary);
+		Console.WriteLine("Second Salary : {0}", secondSalary);
+		Console.WriteLine("Total Salary : {0}", sum);
+		Console.ReadKey();
+}
+
+static void Main(string[] args)
+{
+		Console.WriteLine("Enter First Salary");
+		double firstSalary = double.Parse(Console.ReadLine());
+		Console.WriteLine("Enter Second Salary");
+		double secondSalary = double.Parse(Console.ReadLine());
+
+		double sum = firstSalary + secondSalary;
+
+		Console.WriteLine("First Salary : {0}", firstSalary);
+		Console.WriteLine("Second Salary : {0}", secondSalary);
+		Console.WriteLine("Total Salary : {0}", sum);
+		Console.ReadKey();
+}
+
+3. Find smallest age of given two ages.
+age : 0 - 120
+static void Main(string[] args)
+{
+		byte firstAge = 46;
+		byte secondAge = 35;
+		byte smallestAge = 0;
+		if((firstAge < secondAge))
+		{
+				smallestAge = firstAge;
+		}
+		else
+		{
+				smallestAge = secondAge;
+		}
+
+		Console.WriteLine("First Age: {0}", firstAge);
+		Console.WriteLine("Second Age: {0}", secondAge);
+		Console.WriteLine("Smallest Age: {0}", smallestAge);
+
+		Console.ReadKey();
+}
+
+ static void Main(string[] args)
+{
+		byte firstAge = 46;
+		byte secondAge = 35;
+		byte smallestAge = 0;
+
+		smallestAge = ((firstAge < secondAge) ? firstAge  : secondAge);
+
+		Console.WriteLine("First Age: {0}", firstAge);
+		Console.WriteLine("Second Age: {0}", secondAge);
+		Console.WriteLine("Smallest Age: {0}", smallestAge);
+
+		Console.ReadKey();
+}
+
+4. Find smallest age and largest age of given two ages. By refactoring previous code (finding smallest age) to the function, call the function.
+Even you define the function for finding largest age.
+
+class ProcessAge
+{
+		internal static byte findSmallestAge(byte firstAge, byte secondAge)
+		{
+				byte smallestAge;
+				if ((firstAge < secondAge))
+				{
+						smallestAge = firstAge;
+				}
+				else
+				{
+						smallestAge = secondAge;
+				}
+				return smallestAge;
+		}
+		internal static byte findLargestAge(byte firstAge, byte secondAge)
+		{
+				byte largestAge;
+				if ((firstAge > secondAge))
+				{
+						largestAge = firstAge;
+				}
+				else
+				{
+						largestAge = secondAge;
+				}
+				return largestAge;
+		}
+}
+class Program
+{
+		static void Main(string[] args)
+		{
+				byte firstAge = 35;
+				byte secondAge = 46;
+				byte smallestAge = 0, largestAge = 0;
+
+				smallestAge = ProcessAge.findSmallestAge(firstAge, secondAge);
+				largestAge = ProcessAge.findLargestAge(firstAge, secondAge);
+
+				Console.WriteLine("First Age: {0}", firstAge);
+				Console.WriteLine("Second Age: {0}", secondAge);
+				Console.WriteLine("Smallest Age: {0}", smallestAge);
+				Console.WriteLine("Largest Age: {0}", largestAge);
+
+				Console.ReadKey();
+		}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================================================
+	1. computing / data processing 
+	Declaration Statement 
+		Data Types 
+		Variables / Functions - Identifiers 
+	Assignment Statement 
+	Control Statement 
+		Conditional 
+			if..else 
+			switch..case..default 
+		Loop / Itermation 
+			for..
+			while 
+			do..while 
+	Functions / Methods - Modularization - Procedural Oriented Programmming (Tasks)
+	OOP - see problem as inter connection many real time objects 
+						- Object Oriented Programming 
+	collections
+	exception handling 
+	
+	delegates, events, lambda 
+==================================================	
