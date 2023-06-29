@@ -17,7 +17,15 @@ using functions. Convert the if statement as conditional operator.
 Assignments:
 13. To print first N prime numbers.
 14. To find number of odd digits, number of event digits in a given number.
+		number=12345  odd digits #3 even digits # 2
+		number=1234		odd digits #2 even digits # 2
+		number=1244		odd digits #1 even digits # 3
 15. To sum the numbers till we get 1000 (STOP).
+	Enter a number: 10
+	Enter a number: 20
+	Enter a number: -5				25
+	Enter a number: 1000			!!! STOP 
+	Sum of the numbers is 25 
 
 
 

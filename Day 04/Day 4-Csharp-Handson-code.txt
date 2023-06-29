@@ -1,0 +1,668 @@
+Day 4 - 
+	arrays
+	functions 
+	
+	oop - principles like class, inheritance, encapsulation, abstraction, data hiding,
+												polymorphism: overloading, overriding
+		class 						POCO(Plan Old CLR Object)
+		inheritance 
+		interface 
+-----------------------------------------------------------------------
+1. array 		
+2. Find number of odd numbers in a given N numbers.
+3. 2D array 
+4. Find minimum age from N ages.
+	Enter number of ages: 5
+	Enter age at 0: 44
+	Enter age at 1: 24
+	Enter age at 2: 33
+	Enter age at 3: 15
+	Enter age at 4: 80
+	Minimum age is 15
+	
+	-- Day Assignment
+5. Find maximum salary from N salaries. 
+	Enter number of salaries: 5
+	Enter salary at 0: 44000
+	Enter salary at 1: 80000
+	Enter salary at 2: 33000
+	Enter salary at 3: 15000
+	Enter salary at 4: 24000
+	Maximum salary is 80000
+	-- Day Assignment
+6. Find number of odd elements in the given 'short'	matrix of size NxM.
+	Enter number of rows: 3
+	Enter number of columns: 2
+	
+	Enter number at 0,0: 15
+	Enter number at 0,1: 21
+	Enter number at 1,0: 30
+	Enter number at 1,1: 80
+	Enter number at 2,0: 23
+	Enter number at 2,1: 85
+
+	Number of odd numbers is 4
+	-- Day Assignment
+7. Concept of functions 
+8. Solve
+Write the following functions:
+	1. FindSum
+	2. FindDifference
+	3. FindProduct
+	4. FindSumExtended
+	5. Swap 
+
+First three function takes two double data and finds the sum, difference and product out of return type.
+
+FindSumExtended takes two double data and returns sum and sends back to caller the difference and sum using out argument.
+
+Swap takes two long data and it does the job of swap the two data using ref argument.
+
+
+9. Default argument in function 
+
+10. OOP
+
+11. Person class intoducing
+
+12. 
+Department{id, departmentName}
+
+Employee {id, name, jobTitle, salary, joiningDate, departmentId}
+		-- Class Work
+
+13. Create the BankAccount class 
+with attributes accountNumber, balance 
+and behaviours/methods Deposit(), WithDraw()
+
+14. Inherit the BankAccount class 
+as RecurringDepositAccount class  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. array 
+  singled named multiple data 
+	to hold multiple data 
+	sequence - linear data structure 
+	
+	10 15 20 12 18 <- integer array 
+	'Maheswaran', 'Shashank', 'Prianka', 'Boomika'
+					<- array of names - string array 
+
+
+#1
+static void Main(string[] args)
+{
+		//string[] names = { "Maheswaran", "Shashank", "Prianka", "Boomika" };//initializer
+		string[] names = new string[4];
+		names[0] = "Maheswaran"; // write into element
+		names[1] = "Shashank";
+		names[2] = "Prianka";
+		names[3] = "Boomika";
+
+		Console.WriteLine("First Name:{0}", names[0]); // read from element
+		Console.WriteLine("Second Name:{0}", names[1]);
+		Console.WriteLine("Third Name:{0}", names[2]);
+		Console.WriteLine("Fourth Name:{0}", names[3]);
+
+		Console.WriteLine("number of names:{0}", names.Length);
+
+		names[0] = "Muralidharan";
+
+		for(int I=0; I < names.Length; I++) //0 1 2 3
+		{
+				Console.WriteLine("Name at index {0}:{1}", I, names[I]);
+		}
+		Console.WriteLine("Names:");
+		foreach (string e in names)
+		{
+				Console.Write("{0}, ", e);
+		}
+		Console.WriteLine();
+
+		Console.WriteLine("Names:");
+		foreach (var e in names)
+		{
+				Console.Write("{0}, ", e);
+		}
+		Console.WriteLine();
+
+		Console.ReadKey();
+}					
+  					
+2. Find number of odd numbers in a given N numbers.
+#1
+static void Main(string[] args)
+{
+		Console.Write("Enter number of numbers:");
+		int N = int.Parse(Console.ReadLine());
+
+		long[] numbers = new long[N];
+		for(int I = 0; I < N; I++)
+		{
+				Console.Write("Enter number at {0}:", I);
+				numbers[I] = long.Parse(Console.ReadLine());
+		}
+
+		int countOdd = 0;
+		foreach (var num in numbers)
+		{
+				if(num %2 == 1)
+				{
+						countOdd++;
+				}
+		}
+
+		Console.WriteLine("There are {0} numbers odd.", countOdd);
+
+		Console.ReadKey();
+}
+
+#2
+class NumberArrayProcess
+{
+		internal static void ReadNumbers(long[] numbers, int N)
+		{
+				for (int I = 0; I < N; I++)
+				{
+						Console.Write("Enter number at {0}:", I);
+						numbers[I] = long.Parse(Console.ReadLine());
+				}
+		}
+		internal static int FindOddCount(long[] numbers, int N)
+		{
+				int countOdd = 0;
+				foreach (var num in numbers)
+				{
+						if (num % 2 == 1)
+						{
+								countOdd++;
+						}
+				}
+				return countOdd;
+		}
+}
+class Program
+{
+		static void Main(string[] args)
+		{
+				Console.Write("Enter number of numbers:");
+				int N = int.Parse(Console.ReadLine());
+
+				long[] numbers = new long[N];
+				NumberArrayProcess.ReadNumbers(numbers, N);
+
+				int countOdd = NumberArrayProcess.FindOddCount(numbers, N);
+
+				Console.WriteLine("There are {0} numbers odd.", countOdd);
+
+				Console.ReadKey();
+		}
+}
+
+3. 2D array
+#1
+static void Main(string[] args)
+{
+		double[,] salariesMatrix =
+		{
+				{ 1000, 2000, 1500},
+				{ 4000, 1500, 2200}
+		}; //2 x 3 matrix -> 2 rows x 3 columns -> array of arrays //initializer
+
+		Console.WriteLine("salaries matrix:");
+		for(int R = 0; R < 2; R++)
+		{
+				for(int C=0; C < 3; C++)
+				{
+						Console.Write("{0}, ", salariesMatrix[R, C]);
+				}
+				Console.WriteLine();
+		}
+
+		//declaring size manually
+		int rowCount = 2;
+		int columnCount = 3;
+		double[,] salariesMatrix2 = new double[rowCount, columnCount];//2rowsx3columns sized matrix (2D array) 
+
+		Console.ReadKey();
+}
+
+4. Find minimum age from N ages.
+	Enter number of ages: 5
+	Enter age at 0: 44
+	Enter age at 1: 24
+	Enter age at 2: 33
+	Enter age at 3: 15
+	Enter age at 4: 80
+	Minimum age is 15
+	
+	-- Day Assignment
+5. Find maximum salary from N salaries. 
+	Enter number of salaries: 5
+	Enter salary at 0: 44000
+	Enter salary at 1: 80000
+	Enter salary at 2: 33000
+	Enter salary at 3: 15000
+	Enter salary at 4: 24000
+	Maximum salary is 80000
+	-- Day Assignment
+6. Find number of odd elements in the given 'short'	matrix of size NxM.
+	Enter number of rows: 3
+	Enter number of columns: 2
+	
+	Enter number at 0,0: 15
+	Enter number at 0,1: 21
+	Enter number at 1,0: 30
+	Enter number at 1,1: 80
+	Enter number at 2,0: 23
+	Enter number at 2,1: 85
+
+	Number of odd numbers is 4
+	-- Day Assignment
+	
+	
+7. Concept of functions 
+We know how to move the task code into functions.
+We know how to define the function, call the function.
+We know how to reuse the function. 
+We know how to use the array, loops, if, switch inside the function. 
+
+Arguments to the function 
+	1. No argument function 
+	2. Argument(s) function 
+			1 arg, 2 args, 3 args, etc 
+Return type of the function 
+	1. no-return function 
+	2. return function 
+			only one value will be returned ???
+			
+a. default argument 
+b. qualifier/type of the argument 
+	pass by value 
+	pass by reference 
+	
+	
+	primitive types:
+		char, byte, integers, real numbers, enumeration 
+		are value types 
+	reference types:
+		arrays, class, interface 
+		
+to swap two numbers:
+#1
+static void Main(string[] args)
+{
+		int a = 10, b = 20;
+		Console.WriteLine("before swap: a={0},b={1}", a, b);
+		int t = a;
+		a = b;
+		b = t;
+		Console.WriteLine("after swap: a={0},b={1}", a, b);
+		Console.ReadKey();
+}		
+
+value type: when we put into another variable 
+	the value will be copied 
+
+reference type: 
+		when we put into another variable 
+		the reference only will be copied
+		not the values 
+		
+		that means both left side variable 
+		and right side variable shares same memory.
+		
+qualifiers for the argument:
+1. in	
+	by default, primitive types are pass by value 
+	ie in arguments 
+			we can send the data to the function 
+2. out
+			we can get the data out of the function 
+			-- it similar the return type 
+3. ref 		
+			both in and out argument 
+			send/receive data using 'ref' argument 
+
+	
+8. Solve
+Write the following functions:
+1. FindSum
+2. FindDifference
+3. FindProduct
+4. FindSumExtended
+5. Swap 
+
+First three function takes two double data and finds the sum, difference and product out of return type.
+
+FindSumExtended takes two double data and returns sum and sends back to caller the difference and sum using out argument.
+
+Swap takes two long data and it does the job of swap the two data using ref argument.
+
+
+#1
+class Calculator
+{
+		internal static double findSum(double first, double second)
+		{
+				return first + second;
+		}
+		internal static double findDifference(double first, double second)
+		{
+				return first - second;
+		}
+		internal static double findProduct(double first, double second)
+		{
+				return first * second;
+		}
+		internal static double findSumExtended(double first, double second, out double difference, 
+						out double product)
+		{
+				double sum = first + second;
+				difference = first - second;
+				product = first * second;
+				return sum;
+		}
+
+		internal static void swap(ref long a, ref long b)
+		{
+				long t = a;
+				a = b;
+				b = t;
+		}
+}
+
+class Program
+{
+		static void Main(string[] args)
+		{
+				double p = 20, q = 3;
+
+				double sum = Calculator.findSum(p, q);
+				double difference = Calculator.findDifference(p, q);
+				double product = Calculator.findProduct(p, q);
+
+				Console.WriteLine("First Salary: {0}", p);
+				Console.WriteLine("Second Salary: {0}", q);
+				Console.WriteLine("Sum Salary: {0}", sum);
+				Console.WriteLine("Difference Salary: {0}", difference);
+				Console.WriteLine("Product Salary: {0}", product);
+
+				double sum2, difference2, product2;
+				sum2 = Calculator.findSumExtended(p, q, out difference2, out product2);
+				Console.WriteLine("Sum Salary: {0}", sum2);
+				Console.WriteLine("Difference Salary: {0}", difference2);
+				Console.WriteLine("Product Salary: {0}", product2);
+
+				long K = 100200300L, J = 300400500L;
+				Console.WriteLine("Before Swap: First={0}, Second={1}", K,J);
+				Calculator.swap(ref K, ref J);
+				Console.WriteLine("After Swap: First={0}, Second={1}", K, J);
+
+				Console.ReadKey();
+		}
+}
+
+
+
+9. Default argument in function 
+
+#1
+ class Dress
+{
+	 internal static string designMyDress(int size, string color="white", string model = "generic")
+		{
+				return $"Your dress size={size} and it is {color} colored, its model is {model}.";
+				//$ before the string acts as placeholder string
+		}
+}
+
+class Program
+{
+		static void Main(string[] args)
+		{
+				string maheshDress = Dress.designMyDress(40, "pink", "casual");
+				string shashangDress = Dress.designMyDress(44);
+				string priyaDress = Dress.designMyDress(38, "black");
+				string boomikaDress = Dress.designMyDress(38, "blue", "formal");
+
+				Console.WriteLine("Mahesh Dress: {0}", maheshDress);//40 pink casual
+				Console.WriteLine("Shashang Dress: {0}", shashangDress);//44 white generic
+				Console.WriteLine("Priya Dress: {0}", priyaDress);//38 black generic
+				Console.WriteLine("Boomika Dress: {0}", boomikaDress);//38 blue formal
+
+				Console.ReadKey();
+		}
+}
+
+10. OOP
+- Object Oriented Programming 
+
+There are programming practices:
+	Procedural Oriented Programming 
+			we will have many modules per application 
+			each module will contain multiple functions 
+	Object Oriented Programming 
+			objects and organize them to solve the problem
+			here, objects may reflect real word objects 
+	Functional Programming 
+			F# 
+			We see all as expressions.
+			useful mathematical, financial calcuations 
+			
+Object Oriented Programming
+	class and object 
+	object is the building block for the programming 
+	
+	examples:
+		employee records
+		bookings records in air line reservation system
+		
+	object is the composite data (different type)
+	object = data + behaviour/functions 
+				 = attributes and behaviours 
+				 = fields/members	+ methods
+				 = memory we construct using type class 
+				 
+	class is the data type | template/blueprint 
+	object is physical entity represents the class 
+			
+	
+	class vs object = type vs variable 
+
+
+	object | instance - synonymous
+	object creation | instance instantiation - synonymous
+			
+			
+
+11. Person class intoducing
+class Person
+{
+		public string firstName;
+		public string lastName;
+
+		public Person()
+		{
+
+		}
+		public Person(string name1, string name2)
+		{
+				firstName = name1;
+				lastName = name2;
+		}
+}
+class Program
+{
+		
+		static void Main(string[] args)
+		{
+				Person mahesh = new Person("Maheswaran", "Govindaraju");
+				Person shashang = new Person("Shashang", "B");
+				Person priya = new Person("Priyanka", "B");
+				Person boomi = new Person("Boomika", "P");
+
+
+				Console.WriteLine($"{mahesh.firstName} {mahesh.lastName}");
+				Console.WriteLine($"{shashang.firstName} {shashang.lastName}");
+				Console.WriteLine($"{priya.firstName} {priya.lastName}");
+				Console.WriteLine($"{boomi.firstName} {boomi.lastName}");
+
+				shashang.lastName = "Balaji";
+
+				Console.WriteLine($"{shashang.firstName} {shashang.lastName}");
+
+				Console.ReadKey();
+		}
+}
+
+12. 
+Department{id, departmentName}
+
+Employee {id, name, jobTitle, salary, joiningDate, departmentId}
+	-- Class Work
+	
+13. Create the BankAccount class 
+with attributes accountNumber, balance 
+and behaviours/methods Deposit(), WithDraw()	
+	
+class BankAccount
+{
+		private string accountNumber;
+		private double balance;
+
+		public BankAccount(string accountNumber)
+		{
+				this.accountNumber = accountNumber;
+				this.balance = 0;
+		}
+
+		public void Deposit(double amount)
+		{
+				this.balance = this.balance + amount;
+		}
+
+		public void Withdraw(double amount)
+		{
+				this.balance = this.balance - amount;
+		}
+
+		public double getBalance()
+		{
+				return this.balance;
+		}
+
+		public string getAccountNumber()
+		{
+				return this.accountNumber;
+		}
+}
+
+
+class Program
+{
+		
+		static void Main(string[] args)
+		{
+				BankAccount maheshAccount = new BankAccount("2995");
+				maheshAccount.Deposit(50000);   // 50000
+				maheshAccount.Withdraw(5000);   // 45000
+				maheshAccount.Withdraw(7500);   // 37500
+				maheshAccount.Withdraw(2000);   // 35500
+				maheshAccount.Deposit(15000);   // 50500
+
+				Console.WriteLine($"{maheshAccount.getAccountNumber()} has balance {maheshAccount.getBalance()}");
+
+				Console.ReadKey();
+		}
+}	
+	
+	
+what is inheritance?
+		inheritance - creating new class(derived class) from existing class(base class) 
+		
+		reusability of existing class as new class by using the attributes and behaviours of existing class.
+	
+14. Inherit the BankAccount class 
+as RecurringDepositAccount class  	
+	
+class BankAccount
+{
+		private string accountNumber;
+		private double balance;
+
+		public BankAccount(string accountNumber)
+		{
+				this.accountNumber = accountNumber;
+				this.balance = 0;
+		}
+
+		public void Deposit(double amount)
+		{
+				this.balance = this.balance + amount;
+		}
+
+		public void Withdraw(double amount)
+		{
+				this.balance = this.balance - amount;
+		}
+
+		public double getBalance()
+		{
+				return this.balance;
+		}
+
+		public string getAccountNumber()
+		{
+				return this.accountNumber;
+		}
+}
+
+class RecurringDepositAccount : BankAccount
+{
+		private int numberOfMonths;
+
+		public RecurringDepositAccount(string accountNumber, int numberOfMonths):base(accountNumber)
+		{
+				this.numberOfMonths = numberOfMonths;
+		}
+}
+class Program
+{
+		
+		static void Main(string[] args)
+		{
+				BankAccount maheshAccount = new BankAccount("2995");
+				maheshAccount.Deposit(50000);   // 50000
+				maheshAccount.Withdraw(5000);   // 45000
+				maheshAccount.Withdraw(7500);   // 37500
+				maheshAccount.Withdraw(2000);   // 35500
+				maheshAccount.Deposit(15000);   // 50500
+
+				Console.WriteLine($"{maheshAccount.getAccountNumber()} has balance {maheshAccount.getBalance()}");
+
+				RecurringDepositAccount recurAccount = new RecurringDepositAccount("3995", 36);
+				recurAccount.Deposit(2000);
+				recurAccount.Deposit(2000);
+				recurAccount.Deposit(2000);
+				Console.WriteLine($"{recurAccount.getAccountNumber()} has balance {recurAccount.getBalance()}");
+				recurAccount.Withdraw(6000);
+				Console.WriteLine($"{recurAccount.getAccountNumber()} has balance {recurAccount.getBalance()}");
+				Console.ReadKey();
+		}
+}
+
+
