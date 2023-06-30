@@ -1,0 +1,636 @@
+1. From Visual Studio
+	- refactoring(auto code generation / alignment)
+			- generate constructor 
+			- convert the field into property 
+			- property with field can be become auto property 
+	- ToString() to print the object as string 
+				to use for printing purpose 
+2. Employee class we used refactoring, tostring, array of employees 
+	
+3. to form the array as collection List<T>
+
+4. Introduction of Linq
+
+5. Advanced the Linq to learn 
+ how to query the List<T>,
+ how to get single record,
+ how to get multiple record,
+ how to use the where condition,
+ how to use orderby + descending,
+ how to form selected columns using ananymous object 
+ how to write utility functions to print the List<T> and List<dynamic>
+ 
+6. Collections - Generic Collections 
+List<T>, HashSet<T>, SotedSet<T>, 
+LinkedList<T>,
+Dictionary<Key,Value>, SortedDictionary<Key,Value>,
+Stack<T>, Queue<T> 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. From Visual Studio
+	- refactoring(auto code generation / alignment)
+			- generate constructor 
+			- convert the field into property 
+			- property with field can be become auto property 
+	- ToString() to print the object as string 
+				to use for printing purpose 
+2. Employee class we used refactoring, tostring, array of employees 	
+    class Employee
+    {
+        private int employee_id;
+        private string employee_name;
+        private string job_title;
+        private DateTime joining_date;
+        private double salary;
+        private int department_id;
+
+        public Employee(int employee_id,
+                        string employee_name,
+                        string job_title,
+                        DateTime joining_date,
+                        double salary,
+                        int department_id)
+        {
+            this.employee_id = employee_id;
+            this.employee_name = employee_name;
+            this.job_title = job_title;
+            this.joining_date = joining_date;
+            this.salary = salary;
+            this.department_id = department_id;
+        }
+
+        override public string ToString()
+        {
+            return $"[{employee_id},{employee_name},{job_title},{joining_date},{salary},{department_id}]";
+        }
+    }
+		
+3. to form the array as collection List<T>		
+		
+class Employee
+    {
+        public int Employee_id { get; set; }
+        public string Employee_name { get; set; }
+        public string Job_title { get; set; }
+        public DateTime Joining_date { get; set; }
+        public double Salary { get; set; }
+        public int Department_id { get; set; }
+
+        public Employee(int employee_id,
+                        string employee_name,
+                        string job_title,
+                        DateTime joining_date,
+                        double salary,
+                        int department_id)
+        {
+            this.Employee_id = employee_id;
+            this.Employee_name = employee_name;
+            this.Job_title = job_title;
+            this.Joining_date = joining_date;
+            this.Salary = salary;
+            this.Department_id = department_id;
+        }
+
+        
+
+        override public string ToString()
+        {
+            return $"[{Employee_id},{Employee_name},{Job_title},{Joining_date},{Salary},{Department_id}]";
+        }
+    }
+
+    class Program
+    {
+        
+        
+        static void Main(string[] args)
+        {
+            List<Employee> employees = new List<Employee>{
+                new Employee(1, "Rahul Dravid", "Head", new DateTime(2020, 1, 1), 7500, 10),
+                new Employee(2, "Rohit Sharma", "Head", new DateTime(2020, 1, 1), 7500, 10)
+            };
+            
+            foreach(var e in employees)
+            {
+                Console.WriteLine($"{e}");
+            }
+
+            Console.ReadKey();
+        }
+    }		
+		
+		
+		
+		
+4. Introduction of Linq:
+
+ class Department
+    {
+        public int department_id { get; set; }
+        public string department_name { get; set; }
+
+        public Department(int department_id, string department_name)
+        {
+            this.department_id = department_id;
+            this.department_name = department_name;
+        }
+        override public string ToString()
+        {
+            return $"[{department_id},{department_name}]";
+        }
+
+    }
+    class Employee
+    {
+        public int employee_id { get; set; }
+        public string employee_name { get; set; }
+        public string job_title { get; set; }
+        public DateTime joining_date { get; set; }
+        public double salary { get; set; }
+        public int department_id { get; set; }
+
+        public Department department { get; set; }
+
+        public Employee(int employee_id, string employee_name, string job_title, DateTime joining_date, double salary, int department_id)
+        {
+            this.employee_id = employee_id;
+            this.employee_name = employee_name;
+            this.job_title = job_title;
+            this.joining_date = joining_date;
+            this.salary = salary;
+            this.department_id = department_id;
+        }
+
+        override public string ToString()
+        {
+            return $"[{employee_id},{employee_name},{job_title},{joining_date},{salary},{department_id},{department}]";
+        }
+    }
+
+    class Db
+    {
+        public List<Department> GetDepartments()
+        {
+            List<Department> departments = new List<Department>
+            {
+                new Department(10,  "Analysis"),
+                new Department(20,  "Design"),
+                new Department(30,  "Development"),
+                new Department(40,  "Testing"),
+                new Department(50,  "Devops"),
+                new Department(60,  "Support")
+            };
+
+            return departments;
+        }
+        public List<Employee> GetEmployees()
+        {
+            List<Employee> employees = new List<Employee>
+            {
+                new Employee(1,   "Rahul Dravid",    "Head",    new DateTime(2020,01,01), 7500,    10),
+                new Employee(2, "Rohit Sharma", "Manager", new DateTime(2022,01,01), 6000,    20),
+                new Employee(3, "Virat Kohli", "Development", new DateTime(2005,01,01), 5900,    30),
+                new Employee(4, "Siraj", "Testing", new DateTime(2020,01,01), 4700 ,   40),
+                new Employee(5, "Rahane", "Development", new DateTime(2009,01,01), 5200,    30),
+                new Employee(6, "Shami", "Testing", new DateTime(2018,01,01), 5500,    40),
+                new Employee(7, "Subhman Gill", "Development", new DateTime(2021,01,01), 3500,    30),
+                new Employee(8, "Jadeja", "Testing", new DateTime(2015,01,01), 4800,    40)
+            };
+            List<Department> departments = GetDepartments();
+            foreach (var employee in employees)
+            {
+                employee.department = (from department in departments
+                                       where (department.department_id == employee.department_id)
+                                       select department).Single();
+            }
+            return employees;
+        }
+    
+        public void PrintDepartments(List<Department> departments)
+        {
+            Console.WriteLine("\n\n");
+            foreach (var e in departments)
+            {
+                Console.WriteLine($"{e}");
+            }
+        }
+    }
+
+    class Program
+    {
+        
+        
+        static void Main(string[] args)
+        {
+            Db db = new Db();
+            List<Department> departments = db.GetDepartments();
+            db.PrintDepartments(departments);
+
+            // dept starts with D
+            var departmentsStartsD = (from department in departments
+                          where department.department_name.StartsWith("D")
+                          select department).ToList();
+            db.PrintDepartments(departmentsStartsD);
+
+            var analysis = (from department in departments
+                          where department.department_name=="Analysis"
+                          select department).Single();
+            Console.WriteLine($"\n\n\n{analysis}");
+            Console.ReadKey();
+        }
+    }		
+		
+5. Advanced the Linq to learn 
+ how to query the List<T>,
+ how to get single record,
+ how to get multiple record,
+ how to use the where condition,
+ how to use orderby + descending,
+ how to form selected columns using ananymous object 
+ how to write utility functions to print the List<T> and List<dynamic>
+
+
+	class Department
+	{
+			public int department_id { get; set; }
+			public string department_name { get; set; }
+
+			public Department(int department_id, string department_name)
+			{
+					this.department_id = department_id;
+					this.department_name = department_name;
+			}
+			override public string ToString()
+			{
+					return $"[{department_id},{department_name}]";
+			}
+
+	}
+	class Employee
+	{
+			public int employee_id { get; set; }
+			public string employee_name { get; set; }
+			public string job_title { get; set; }
+			public DateTime joining_date { get; set; }
+			public double salary { get; set; }
+			public int department_id { get; set; }
+
+			public Department department { get; set; }
+
+			public Employee(int employee_id, string employee_name, string job_title, DateTime joining_date, double salary, int department_id)
+			{
+					this.employee_id = employee_id;
+					this.employee_name = employee_name;
+					this.job_title = job_title;
+					this.joining_date = joining_date;
+					this.salary = salary;
+					this.department_id = department_id;
+			}
+
+			override public string ToString()
+			{
+					return $"[{employee_id},{employee_name},{job_title},{joining_date},{salary},{department_id},{department}]";
+			}
+	}
+
+	class Db
+	{
+			public List<Department> GetDepartments()
+			{
+					List<Department> departments = new List<Department>
+					{
+							new Department(10,  "Analysis"),
+							new Department(20,  "Design"),
+							new Department(30,  "Development"),
+							new Department(40,  "Testing"),
+							new Department(50,  "Devops"),
+							new Department(60,  "Support")
+					};
+
+					return departments;
+			}
+			public List<Employee> GetEmployees()
+			{
+					List<Employee> employees = new List<Employee>
+					{
+							new Employee(1,   "Rahul Dravid",    "Head",    new DateTime(2020,01,01), 7500,    10),
+							new Employee(2, "Rohit Sharma", "Manager", new DateTime(2022,01,01), 6000,    20),
+							new Employee(3, "Virat Kohli", "Development", new DateTime(2005,01,01), 5900,    30),
+							new Employee(4, "Siraj", "Testing", new DateTime(2020,01,01), 4700 ,   40),
+							new Employee(5, "Rahane", "Development", new DateTime(2009,01,01), 5200,    30),
+							new Employee(6, "Shami", "Testing", new DateTime(2018,01,01), 5500,    40),
+							new Employee(7, "Subhman Gill", "Development", new DateTime(2021,01,01), 3500,    30),
+							new Employee(8, "Jadeja", "Testing", new DateTime(2015,01,01), 4800,    40)
+					};
+					List<Department> departments = GetDepartments();
+					foreach (var employee in employees)
+					{
+							employee.department = (from department in departments
+																		 where (department.department_id == employee.department_id)
+																		 select department).Single();
+					}
+					return employees;
+			}
+	
+			public void PrintDepartments(List<Department> departments)
+			{
+					foreach (var e in departments)
+					{
+							Console.WriteLine($"{e}");
+					}
+			}
+
+			public void PrintEmployees(List<Employee> employees)
+			{   
+					foreach (var e in employees)
+					{
+							Console.WriteLine($"{e}");
+					}
+			}
+
+			public void PrintEmployees(List<dynamic> employees)
+			{
+					foreach (var e in employees)
+					{
+							Console.WriteLine($"{e}");
+					}
+			}
+
+			public List<Employee> GetEmployeesByJobTitle(string job_title)
+			{
+					List<Employee> employees = GetEmployees();
+					var result = (from employee in employees
+												where (employee.job_title == job_title)
+												select employee).ToList();
+					return result;
+			}
+			public List<Employee> GetEmployeesByJobTitleSorted(string job_title)
+			{
+					List<Employee> employees = GetEmployees();
+					var result = (from employee in employees
+												where (employee.job_title == job_title)
+												orderby employee.employee_name descending
+												select employee).ToList();
+					return result;
+			}
+			public List<dynamic> GetEmployeesByJobTitlePartialColumns(string job_title)
+			{
+					List<Employee> employees = GetEmployees();
+					var result = (from employee in employees
+												where (employee.job_title == job_title)
+												select new { employee_name=employee.employee_name, 
+																		 job_title = employee.job_title
+																	 } ).ToList<dynamic>();
+					return result;
+			}
+	}
+
+	class Program
+	{
+			
+			
+			static void Main(string[] args)
+			{
+					Db db = new Db();
+					var allEmployees = db.GetEmployees();
+					Console.WriteLine("\n\n\nAll Employees");
+					db.PrintEmployees(allEmployees);
+
+					var employeesDeveloper = db.GetEmployeesByJobTitle("Development");
+					Console.WriteLine("\n\n\nEmployees who are developers");
+					db.PrintEmployees(employeesDeveloper);
+
+					var employeesTester = db.GetEmployeesByJobTitle("Testing");
+					Console.WriteLine("\n\n\nEmployees who are testers");
+					db.PrintEmployees(employeesTester);
+
+					var employeesDeveloperSorted = db.GetEmployeesByJobTitleSorted("Development");
+					Console.WriteLine("\n\n\nEmployees who are developers, Sorted");
+					db.PrintEmployees(employeesDeveloperSorted);
+
+					var employeesTesterSorted = db.GetEmployeesByJobTitleSorted("Testing");
+					Console.WriteLine("\n\n\nEmployees who are testers, Sorted");
+					db.PrintEmployees(employeesTesterSorted);
+
+					var employeesDeveloperPartialColumns = db.GetEmployeesByJobTitlePartialColumns("Development");
+					Console.WriteLine("\n\n\nEmployees who are developers, PartialColumns");
+					db.PrintEmployees(employeesDeveloperPartialColumns);
+
+					Console.ReadKey();
+			}
+	} 
+	
+6. Collections - Generic Collections 
+List<T>, HashSet<T>, SotedSet<T>, 
+LinkedList<T>,
+Dictionary<Key,Value>, SortedDictionary<Key,Value>,
+Stack<T>, Queue<T> 	
+
+#1
+static void Main(string[] args)
+{
+		List<double> salaries = new List<double>
+		{
+				1000, 2500, 5500, 10000, 8000, 2500, 8300, 5500
+		};
+
+		foreach(var e in salaries)
+		{
+				Console.WriteLine($"{e}");
+		}
+
+		Console.ReadKey();
+}	
+
+#2
+static void Main(string[] args)
+{
+		HashSet<double> salaries = new HashSet<double>
+		{
+				1000, 2500, 5500, 10000, 8000, 2500, 8300, 5500
+		};
+
+		foreach(var e in salaries)
+		{
+				Console.WriteLine($"{e}");
+		}
+
+		Console.ReadKey();
+}
+
+#3
+static void Main(string[] args)
+{
+		SortedSet<double> salaries = new SortedSet<double>
+		{
+				1000, 2500, 5500, 10000, 8000, 2500, 8300, 5500
+		};
+
+		foreach(var e in salaries)
+		{
+				Console.WriteLine($"{e}");
+		}
+
+		Console.ReadKey();
+}
+
+#4
+static void Main(string[] args)
+{
+		List<double> salaries = new List<double>
+		{
+				1000, 2500, 5500, 10000, 8000, 2500, 8300, 5500
+		};
+		Stack<double> salariesStack = new Stack<double>(salaries);
+
+		foreach (var e in salariesStack)
+		{
+				Console.WriteLine($"{e}");
+		}
+		Console.WriteLine($"Peek is {salariesStack.Peek()}");
+		Console.WriteLine($"Last taken item is {salariesStack.Pop()}");
+		Console.WriteLine($"Peek is {salariesStack.Peek()}");
+		salariesStack.Push(1300);
+		Console.WriteLine($"Peek is {salariesStack.Peek()}");
+
+		Console.ReadKey();
+}
+
+#5
+static void Main(string[] args)
+{
+		List<double> salaries = new List<double>
+		{
+				1000, 2500, 5500, 10000, 8000, 2500, 8300, 5500
+		};
+		Queue<double> salariesQueue = new Queue<double>(salaries);
+
+		foreach (var e in salariesQueue)
+		{
+				Console.WriteLine($"{e}");
+		}
+		Console.WriteLine($"Peek is {salariesQueue.Peek()}");
+		Console.WriteLine($"Last taken item is {salariesQueue.Dequeue()}");
+		Console.WriteLine($"Peek is {salariesQueue.Peek()}");
+		salariesQueue.Enqueue(1300);
+		Console.WriteLine($"Peek is {salariesQueue.Peek()}");
+
+		Console.ReadKey();
+}
+
+#6
+static void Main(string[] args)
+{
+		List<double> salaries = new List<double>
+		{
+				1000, 2500, 5500, 10000, 8000, 2500, 8300, 5500
+		};
+
+		Dictionary<double, int> salariesCount = new Dictionary<double, int>();
+
+		
+		foreach(var e in salaries)
+		{
+				if (!salariesCount.ContainsKey(e))
+				{
+						salariesCount.Add(e, 1);
+				}
+				else
+				{
+						salariesCount[e] = salariesCount[e] + 1;
+				}
+		}
+
+		foreach(var e in salariesCount)
+		{
+				Console.WriteLine($"{e.Key} has count {e.Value}");
+		}
+		Console.ReadKey();
+}
+}
+#7
+static void Main(string[] args)
+{
+		List<double> salaries = new List<double>
+		{
+				1000, 2500, 5500, 10000, 8000, 2500, 8300, 5500
+		};
+
+		SortedDictionary<double, int> salariesCount = new SortedDictionary<double, int>();
+
+		
+		foreach(var e in salaries)
+		{
+				if (!salariesCount.ContainsKey(e))
+				{
+						salariesCount.Add(e, 1);
+				}
+				else
+				{
+						salariesCount[e] = salariesCount[e] + 1;
+				}
+		}
+
+		foreach(var e in salariesCount)
+		{
+				Console.WriteLine($"{e.Key} has count {e.Value}");
+		}
+		Console.ReadKey();
+}
+}
+
+
+#8 
+static void Main(string[] args)
+{
+		List<double> salaries = new List<double>
+		{
+				1000, 2500, 5500, 10000, 8000, 2500, 8300, 5500
+		};
+
+		Dictionary<double, int> salariesCount = new Dictionary<double, int>();
+
+		
+		foreach(var e in salaries)
+		{
+				if (!salariesCount.ContainsKey(e))
+				{
+						salariesCount.Add(e, 1);
+				}
+				else
+				{
+						salariesCount[e] = salariesCount[e] + 1;
+				}
+		}
+
+		foreach(var e in salariesCount)
+		{
+				Console.WriteLine($"{e.Key} has count {e.Value}");
+		}
+
+		var resultSortedByValue = (from pair in salariesCount
+															 orderby pair.Value
+															 select pair).ToList();
+
+		Console.WriteLine("\n\n\nSort by count");
+		foreach (var e in resultSortedByValue)
+		{
+				Console.WriteLine($"{e.Key} has count {e.Value}");
+		}
+
+		Console.ReadKey();
+}
+}

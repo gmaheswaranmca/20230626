@@ -461,7 +461,7 @@ There are programming practices:
 	Functional Programming 
 			F# 
 			We see all as expressions.
-			useful mathematical, financial calcuations 
+			useful for mathematical, financial calcuations 
 			
 Object Oriented Programming
 	class and object 
