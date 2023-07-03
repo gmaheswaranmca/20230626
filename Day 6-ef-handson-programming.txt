@@ -1,0 +1,265 @@
+Day 6
+Entity Framework 
+	ORM - Object 								Relational 				Mapper 
+				C# collection					table 						communication
+				object								row								communication
+	abstraction over ADO.NET, Native Queries 
+	using C# Objects, Linq to query 
+	
+Database First 		|			Code First		| 		Model First 	
+
+
+Database First : database driven orm 
+	 1. either (a) we use existing database or (b) we construct database first 
+	 2. from database we define the object definitions ie classes ie models classes 
+			foundation for the database connection ie context 
+	 3. context and models to do database programming 
+	 
+Code First : model classes driven orm 	 
+	 1. models classes and context are coded first 
+	 2. construt database automatically using models and context we defined 
+	 3. context and models to do database programming 
+	 
+Model First : model drawings/UML driven orm 	 	 
+	 1. models classes are drawn 
+	 2. construct models classes using model drawing 
+	 2. construt database automatically using models and context we got via models diagrams
+	 3. context and models to do database programming 
+	 
+	 
+	 construt database automatically for Code First and Model First:
+	 1. we can do via application start					: java EE, java Spring / Spring Boot 
+	 or 
+	 2. we can do manually using CLI commands 	: python django, python flask
+	 
+	 
+	 Create Database First Time 
+	 Drop and Create 
+	 Drop and Create if models changes 
+---------------------------------------------------------------------------------
+Console App 
+1. Database First approach using EF 
+	 Assumption: we have database of employee, department tables + data 
+	 
+	 1. Query using Linq 
+	 2. CRUD operations 
+	 
+2. Code First approach using EF 	 
+			- CLI commands for database migrations 
+			
+3. Code First approach using EF 	 
+			- application level migrations 
+---------------------------------------------------------------------------------
+
+
+
+
+
+1. Database First approach using EF 
+	 Assumption: we have database of employee, department tables + data 
+	 
+	 1. Query using Linq 
+	 2. CRUD operations 
+
+	Prerequisites:
+i. create .edmx file for employee, department tables 
+		check that is there employee model class, 
+				department model class, 
+				EmployeeDbContext class with DbSet for deparments and employees
+				
+		Name of the model is: EmployeeDepartmentModel
+		Name of the connection string: EmployeeDbContext 
+		Name of the Models namesapce : Models 
+ii. try the following code:	
+
+
+#A
+class Program
+    {
+        static void Main(string[] args)
+        {
+            var dbContext = new EmployeeDbContext();
+            //allEmployees
+            var allEmployees = (from e in dbContext.employees
+                                select e).ToList();
+            Console.WriteLine("All Employees:");
+            allEmployees.ForEach(Console.WriteLine);
+
+            //developers
+            var developers = (from e in dbContext.employees
+                              where e.job_title == "Development"
+                              select e).ToList();
+            Console.WriteLine("\n\nDevelopers:");
+            developers.ForEach(Console.WriteLine);
+
+            //testers
+            var testers = (from e in dbContext.employees
+                              where e.job_title == "Testing"
+                              select e).ToList();
+            Console.WriteLine("\n\nTesters:");
+            testers.ForEach(Console.WriteLine);
+
+            //above 5000 salary getters
+            var above5000SalaryGetters = (from e in dbContext.employees
+                           where e.salary > 5000.0
+                           select e).ToList();
+            Console.WriteLine("\n\nabove 5000 salary getters:");
+            above5000SalaryGetters.ForEach(Console.WriteLine);
+
+            Console.ReadKey();
+        }
+    }
+		
+		
+
+3. Code First approach using EF 	 
+			- application level migrations
+
+Run the following CLI command at Nuget Package Manager Console			
+$ install-package EntityFramework 
+
+Now we can check the solution explorer->project->References
+we will have the EntityFramework, 			
+	EntityFramework.SqlServer assemblies automatially.
+	
+			
+#A			
+<connectionStrings>
+	<add name="EmployeeDbContext" 
+		connectionString="data source=WINDOWS-9KGIOCA;initial catalog=EmployeeAppDb45;integrated security=True;"
+		 providerName="System.Data.SqlClient"
+		/>
+</connectionStrings>
+
+
+#B
+public class Department
+{
+		public int DepartmentId { get; set; }
+		public string DepartmentName { get; set; }
+
+		public Department()
+		{
+
+		}
+		public Department( string departmentName)
+		{
+				DepartmentName = departmentName;
+		}
+		public override string ToString()
+		{
+				return $"[{DepartmentId}, {DepartmentName}]";
+		}
+}
+public class Employee
+{
+		public int EmployeeId { get; set; }
+		public string EmployeeName { get; set; }
+		public string JobTitle { get; set; }
+		public DateTime JoiningDate { get; set; }
+		public double Salary { get; set; }
+		public int DepartmentId { get; set; }
+
+		public Department Department { get; set; }
+		public Employee()
+		{
+				
+		}
+		public Employee(string employeeName, string jobTitle, DateTime joiningDate, double salary, int departmentId)
+		{
+				EmployeeName = employeeName;
+				JobTitle = jobTitle;
+				JoiningDate = joiningDate;
+				Salary = salary;
+				DepartmentId = departmentId;
+		}
+		public override string ToString()
+		{
+				return $"[{EmployeeId}, {EmployeeName}, {JobTitle}, {JoiningDate}, {Salary}, {DepartmentId}, {Department}]";
+		}
+}
+public class EmployeeDbIntializer : DropCreateDatabaseIfModelChanges<EmployeeDbContext>
+//CreateDatabaseIfNotExists | DropCreateDatabaseAlways
+{
+		protected override void Seed(EmployeeDbContext context)
+		{
+				var initialDepartments = new List<Department>
+				{
+						new Department("Analysis"),
+						new Department("Design"),
+						new Department("Development"),
+						new Department("Testing"),
+						new Department("Support"),
+						new Department("Maintanance")
+				};
+				initialDepartments.ForEach(d => context.Departments.Add(d));
+				context.SaveChanges();
+				var allDepartments = (from d in context.Departments
+															select d).ToList();
+				var initialEmployees = new List<Employee>{
+						new Employee("Rahul Dravid", "Head", new DateTime(2010, 1, 1), 9000, allDepartments[0].DepartmentId),
+						new Employee("Surya Kumar", "Developer", new DateTime(2022, 1, 1), 6500, allDepartments[2].DepartmentId),
+						new Employee("Rohit Sharma", "Manager", new DateTime(2015, 1, 1), 8000, allDepartments[1].DepartmentId),
+						new Employee("Shami", "Tester", new DateTime(2013, 1, 1), 6000, allDepartments[3].DepartmentId),
+						new Employee("Virat Kohli", "Developer", new DateTime(2012, 1, 1), 7500, allDepartments[2].DepartmentId),
+						new Employee("Subhman Gill", "Developer", new DateTime(2021, 1, 1), 5000, allDepartments[2].DepartmentId),
+						new Employee("Siraj", "Tester", new DateTime(2019, 1, 1), 4000, allDepartments[3].DepartmentId),
+						new Employee("Jadeja", "Tester", new DateTime(2011, 1, 1), 7000, allDepartments[3].DepartmentId)
+				};
+				initialEmployees.ForEach(e => context.Employees.Add(e));
+				context.SaveChanges();
+				base.Seed(context);
+		}
+}
+public class EmployeeDbContext : DbContext
+{
+		public EmployeeDbContext() : base("name=EmployeeDbContext")
+		{   
+				Database.Log = Console.WriteLine;
+
+				var seeder = new EmployeeDbIntializer();
+				Database.SetInitializer(seeder);
+		}
+
+		public DbSet<Employee> Employees { get; set; }
+		public DbSet<Department> Departments { get; set; }
+}
+class Program
+{
+		static void Main(string[] args)
+		{
+				var dbContext = new EmployeeDbContext();
+
+				var allDepartments = (from d in dbContext.Departments
+															select d).ToList();
+				Console.WriteLine("All Departments:");
+				allDepartments.ForEach(Console.WriteLine);
+
+				var allEmployees = (from e in dbContext.Employees
+														select e).ToList();
+				Console.WriteLine("\n\nAll Employees");
+				allEmployees.ForEach(Console.WriteLine);
+
+				Console.ReadKey();
+		}
+}
+
+
+
+
+Priya:
+	 
+metadata=res://*/employeedepartmentmodel.csdl|res://*/employeedepartmentmodel.ssdl|res://*/employeedepartmentmodel.msl;provider=System.Data.SqlClient;provider connection string="data source=LAPTOP-JV4H54T3;initial catalog=Employee_app_db;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"	 
+	 
+Boomi:
+
+metadata=res://*/employeedeptmodel.csdl|res://*/employeedeptmodel.ssdl|res://*/employeedeptmodel.msl;provider=System.Data.SqlClient;provider connection string="data source=DESKTOP-7F8L87I\SQLEXPRESS;initial catalog=employee_app_db;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"
+
+Shashang:
+metadata=res://*/EmployeeDepartmentModel.csdl|res://*/EmployeeDepartmentModel.ssdl|res://*/EmployeeDepartmentModel.msl;provider=System.Data.SqlClient;provider connection string="data source=SHASH\SQLEXPRESS;initial catalog=employee_app_db;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"
+
+Maheswaran:
+metadata=res://*/EmployeeDepartmentModel.csdl|res://*/EmployeeDepartmentModel.ssdl|res://*/EmployeeDepartmentModel.msl;provider=System.Data.SqlClient;provider connection string="data source=WINDOWS-9KGIOCA;initial catalog=employee_app_db;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"	 
+---------------------------------------------------------------------------------	 
+	 
+	 
