@@ -47,9 +47,29 @@ Console App
 ASP MVC 
 Web API + Angular 			
 
-
+````````````````````````````````````````````````````````````````
 Database Formation First 
 		- Database First (Bringing table EF automated tool) 
+		
+		
+CREATE DATABASE PersonAppDb;
+USE PersonAppDb;
+
+CREATE TABLE Person(
+	PersonId int identity(1,1),
+	FirstName varchar(255) not null,
+	LastName varchar(245) not null,
+	CONSTRAINT pk_Person_PersonId
+		PRIMARY KEY(PersonId)
+	);
+	
+SELECT * FROM Person;	
+	
+-- --DROP TABLE Person;	
+
+-- --DROP DATABASE PersonAppDb;
+````````````````````````````````````````````````````````````````
+		
 		- Code Next Manually - Model and Context manual code writing 
 --------------------------------------------------------------			
 CREATE DATABASE PersonAppDb;
@@ -419,19 +439,51 @@ namespace PersonAppProject
 	
 
 
-*********************************************************************************
-----Assignment of the Day:----
 
-DepartmentAppDb 
-	Department: DepartmentID, DepartmentName, City 
+
+Last 40 minutes
+
+1. Create Admin {AdminId, Username, Password} model in .edmx diagram
+		Save .edmx file, we got Admin model class, Admins DbSet in the PersonDbContext class 
+		
+		use the option (right click in the empty area of diagram area) 
+		Generate Database from model...
+					to get the script for available models in the diagram 
+					
+		----    Model First  ---
+		
+2. Assumption 
+			Model Admin is not in .edmx diagram 
+			Model is the table in the database 
+			
+		to bring to Admin table as the model in the existing diagram 
+		use the option (right click in the empty area of diagram area) 
+		Update Model from Database...
+		
+		Three tabs in the dialog boxes:
+		1. Add 2. Refresh 3. Delete 
+		
+		Refresh section is the tables for the models in the diagram
+		Add section is the one where we pick new table to become as models 
+		
+		---      Database First ----
+		
+		Pick the tables to become models 
+		
+		Now, we have the new models our case "Admin" 
+		
+		After that, save the diagram, we will "Admin" model class, "Admins" DbSet in the Context class 
+		
+3. using Model First approach,
+   Define the following models 
+   model:Driver {DriverId, DriverName, MobileNumber, DrivingLicenceNumber, Username, Password}
+   model:Cab {CabId, CabNumber, RegistrationNumber, DriverId}
+   Association: Driver (Dont pick navigational property) <----> Cab (pick the driver as navigational property)              One to One relationship we set here 
+	 
+	 we generated database code and C# code.
+			
 	
-DepartmentApp
-	Deparment model class, DepartmentDbContext - connection string, context class 
-	DepartmentApp.Service.DepartmentService 
-	DepartmentApp.View.DepartmentView
-	Main - Driver Program 
 
------------------------------------------------------------------------------------
 
 
 
