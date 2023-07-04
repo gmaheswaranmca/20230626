@@ -1,0 +1,17 @@
+
+
+*********************************************************************************
+----Assignment of the Day:----
+
+DepartmentAppDb 
+	Department: DepartmentID, DepartmentName, City 
+	
+DepartmentApp
+	Deparment model class, DepartmentDbContext - connection string, context class 
+	DepartmentApp.Service.DepartmentService 
+	DepartmentApp.View.DepartmentView
+	Main - Driver Program 
+
+-----------------------------------------------------------------------------------
+
+
