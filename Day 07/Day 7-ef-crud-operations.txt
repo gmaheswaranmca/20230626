@@ -1,0 +1,425 @@
+Day 7:
+		We are comfortable with SQL Server.
+		
+		EF - Database First, Code First, Model First 
+		
+		--- --- --- 
+		
+		What is application? 
+			application - database managment 
+				 - building block: data (records)
+						- Transaction 							INSERT, UPDATE, DELETE 
+						- Analytics / Reports				SELECT 
+			let us analyse some apps. 
+			
+		Airline Reservation System 
+			Admin App 
+				Table: Admin -- to go into Admin App (Log in)
+				Table: Flight -- add flight, update ticket price, etc
+							 Booking -- monitors, analyse, dashboard 
+			Customer App 
+				Table: Customer -- subscription 
+				Table: Booking, BookingPassenger -- for bookings
+									-- her/his bookings 
+		Cab System 
+			Driver App 
+				Table: Driver -- Subscription, Update Profile  
+				Table: Cab 
+				Table: Booking -- to go on trip, to find next trip, to know the today's income 
+			Customer App 
+				Table: Customer -- Subscription 
+				Table: Booking -- to know current trip, or wait for the trip 
+								-- bookings history
+	  1. understand the requirements clearly 
+		2. arrive use cases for the application (functionality / feature)
+		3. database design 
+		4. application blocks 
+				forms pages 
+				details/list/report/visualization pages	
+				
+--------------------------------------------------------------
+1. Person App 
+			Person: PersonId, FirstName, LastName 
+			C R U D 
+			Create, Read (Find By Id, Find All), Update, Delete 
+			
+Console App 
+ASP MVC 
+Web API + Angular 			
+
+
+Database Formation First 
+		- Database First (Bringing table EF automated tool) 
+		- Code Next Manually - Model and Context manual code writing 
+--------------------------------------------------------------			
+CREATE DATABASE PersonAppDb;
+USE PersonAppDb;
+
+CREATE TABLE Person(
+	PersonId int identity(1,1),
+	FirstName varchar(255) not null,
+	LastName varchar(245) not null,
+	CONSTRAINT pk_Person_PersonId
+		PRIMARY KEY(PersonId)
+	);
+	
+SELECT * FROM Person;	
+	
+-- --DROP TABLE Person;	
+
+-- --DROP DATABASE PersonAppDb;		
+--------------------------------------------------------------
+
+Add New Item -> ADO.NET Entity Data Model -> Give the name -> "Add" command 
+Choose the model "EF Designer From Database" -> "Next" command ->
+Choose DataConnection -> "New Connection..." command -> 
+			Data Source : Microsoft SQL Server (SqlClient)
+			Server Name: WINDOWS-9KGIOCA
+			Database: PersonAppDb
+			"Test Connection" it should prompt "Test connection succeeded."
+			
+			-> "OK" command 
+			Now, we got the connection string 
+			Give name of the connection string as "PersonDbContext"
+			
+			-> "Next" command 
+			
+			-> Pick "Entity Framework 6.x" 
+			We got the page "Choose you database objects and settings"
+			-> Pick the table(s) 
+					tick the table named "Person" by exapanding to the table 
+			-> Model Namespace as "Models" 
+			
+			-> "Finish" command 
+			
+			Accept the security warnings to create the Model and Context classes.
+			
+Now, we have "Person"	model class, "PersonDbContext" class, "PersonDbContext" connection string 
+--------------------------------------------------------------
+Pick your choice
+	1 - Add Person 
+	2 - Edit Person 
+	3 - Delete Person 
+	4 - Display All Persons 
+	0 - Exit 
+Your Choice: 4
+
+Id First Name  Last Name 
+1  Maheswaran  Govindaraju
+2  Shashang    B 
+...
+
+Pick your choice
+	1 - Add Person 
+	2 - Edit Person 
+	3 - Delete Person 
+	4 - Display All Persons 
+	0 - Exit 
+Your Choice: 1
+
+Enter First Name: Priyanka
+Enter Last Name: B
+
+Pick your choice
+	1 - Add Person 
+	2 - Edit Person 
+	3 - Delete Person 
+	4 - Display All Persons 
+	0 - Exit 
+Your Choice: 4
+
+Id First Name  Last Name 
+1  Maheswaran  Govindaraju
+2  Shashang    B 
+3  Priyanka    B 
+
+Pick your choice
+	1 - Add Person 
+	2 - Edit Person 
+	3 - Delete Person 
+	4 - Display All Persons 
+	0 - Exit 
+Your Choice: 2
+Enter Id: 2
+
+Enter First Name(Shashang): Shashang
+Enter Last Name(B): Balaji
+
+Pick your choice
+	1 - Add Person 
+	2 - Edit Person 
+	3 - Delete Person 
+	4 - Display All Persons 
+	0 - Exit 
+Your Choice: 4
+
+Id First Name  Last Name 
+1  Maheswaran  Govindaraju
+2  Shashang    Balaji 
+3  Priyanka    B 
+
+Pick your choice
+	1 - Add Person 
+	2 - Edit Person 
+	3 - Delete Person 
+	4 - Display All Persons 
+	0 - Exit 
+Your Choice: 3
+Enter Id: 1
+Are you sure delete 'Maheswaran'? yes 
+
+Pick your choice
+	1 - Add Person 
+	2 - Edit Person 
+	3 - Delete Person 
+	4 - Display All Persons 
+	0 - Exit 
+Your Choice: 4
+
+Id First Name  Last Name 
+2  Shashang    Balaji 
+3  Priyanka    B 
+
+Pick your choice
+	1 - Add Person 
+	2 - Edit Person 
+	3 - Delete Person 
+	4 - Display All Persons 
+	0 - Exit 
+Your Choice: 0
+
+Thank you for using Person Application.
+--------------------------------------------------------------
+public partial class PersonDbContext : DbContext
+{
+		public PersonDbContext()
+				: base("name=PersonDbContext")
+		{
+		}
+
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+				throw new UnintentionalCodeFirstException();
+		}
+
+		public virtual DbSet<Person> People { get; set; }
+}
+
+
+public partial class Person
+{
+		public int PersonId { get; set; }
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+}
+
+``````````````````````````````````\Service\PersonService.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PersonAppProject.Models;
+
+namespace PersonAppProject.Service
+{
+    public class PersonService
+    {
+        private PersonDbContext context;
+        public PersonService(PersonDbContext context)
+        {
+            this.context = context;
+        }
+        // Create
+        public void Create(Person newPerson)
+        {
+            context.People.Add(newPerson);
+            context.SaveChanges();
+        }
+        // FindAll
+        public List<Person> FindAll()
+        {
+            var persons = (from p in context.People
+                           select p).ToList();
+            return persons;
+        }
+        // FindById
+        public Person FindById(int id)
+        {
+            var oldPerson = (from p in context.People
+                             where p.PersonId == id
+                             select p).Single();
+            return oldPerson;
+        }
+
+        // Update
+        public void Update(Person oldPerson)
+        {
+            context.SaveChanges();
+        }
+        // Delete
+        public void Delete(Person oldPerson)
+        {
+            context.People.Remove(oldPerson);
+            context.SaveChanges();
+        }
+    }
+}
+``````````````````````````````````
+
+
+``````````````````````````````````\View\PersonView.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PersonAppProject.Models;
+using PersonAppProject.Service;
+
+namespace PersonAppProject.View
+{
+    public class PersonView
+    {
+        private PersonService service;
+        public PersonView()
+        {
+            var context = new PersonDbContext();
+            this.service = new PersonService(context);
+        }
+
+        public void DisplayAll() // Menu 4
+        {
+            // all persons 
+            var allPersons = service.FindAll();
+            // print persons 
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("***Display All Persons Page***");
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("Id\tFirst Name\tLast Name");
+            Console.WriteLine("-------------------------");
+            foreach (var e in allPersons)
+            {
+                Console.WriteLine($"{e.PersonId}\t{e.FirstName}\t{e.LastName}");
+            }
+            Console.WriteLine("-------------------------");
+        }
+
+        public void DoAddPerson() // Menu 1
+        {
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("***New Person Page***");
+            Console.WriteLine("-------------------------");
+            Person newPerson = new Person();
+            Console.Write("Enter First Name:");
+            newPerson.FirstName = Console.ReadLine();
+
+            Console.Write("Enter Last Name:");
+            newPerson.LastName = Console.ReadLine();
+
+            service.Create(newPerson);
+
+            Console.WriteLine("Person is created successfully.");
+            Console.WriteLine("-------------------------");
+        }
+
+        public void DoEditPerson() // Menu 2
+        {
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("***Edit Person Page***");
+            Console.WriteLine("-------------------------");
+            Console.Write("Enter Id:");
+            int id = int.Parse(Console.ReadLine());
+
+            Person oldPerson = service.FindById(id);
+            Console.Write($"Enter First Name({oldPerson.FirstName}):");
+            oldPerson.FirstName = Console.ReadLine();
+
+            Console.Write($"Enter Last Name({oldPerson.LastName}):");
+            oldPerson.LastName = Console.ReadLine();
+
+            service.Update(oldPerson);
+
+            Console.WriteLine("Person is updated successfully.");
+            Console.WriteLine("-------------------------");
+        }
+
+        public void DoDeletePerson() // Menu 3
+        {
+            Console.WriteLine("-------------------------");
+            Console.WriteLine("***Delete Person Page***");
+            Console.WriteLine("-------------------------");
+            Console.Write("Enter Id:");
+            int id = int.Parse(Console.ReadLine());
+
+            Person oldPerson = service.FindById(id);
+
+            Console.Write($"Are you sure to delete {oldPerson.FirstName}(yes/no)?");
+            string yesOrNo = Console.ReadLine();
+
+            if (yesOrNo.Equals("yes")) 
+            { 
+                service.Delete(oldPerson);
+                Console.WriteLine("Person is deleted successfully.");
+            }
+            Console.WriteLine("-------------------------");
+        }
+    }
+}
+
+``````````````````````````````````
+
+``````````````````````````````````
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PersonAppProject.View;
+
+namespace PersonAppProject
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome To Person App!!!!\n\n\n");
+
+            var view = new PersonView();
+            int menu = 0;
+            do
+            {
+                Console.WriteLine("\n\nThe options are");
+                Console.WriteLine("\t1-Add Person");
+                Console.WriteLine("\t2-Edit Person");
+                Console.WriteLine("\t3-Delete Person");
+                Console.WriteLine("\t4-Display All Persons");
+                Console.WriteLine("\t0-Exit App");
+                Console.Write("Your Option:");
+                menu = int.Parse(Console.ReadLine());
+
+                switch(menu)
+                {
+                    case 1: view.DoAddPerson(); break;
+                    case 2: view.DoEditPerson(); break;
+                    case 3: view.DoDeletePerson(); break;
+                    case 4: view.DisplayAll(); break;
+                    case 0: Console.WriteLine("Exiting App..."); break;
+                }
+
+            } while (menu != 0);
+
+            Console.WriteLine("Thank you for using Person app.");
+            Console.ReadKey();
+        }
+    }
+}
+
+``````````````````````````````````	
+	
+
+
+
+					
+			
+				
