@@ -1,0 +1,63 @@
+Query Formation 
+		all records											DONE 
+		filtering												DONE 
+		sorting
+		group 								
+		aggregations 										DONE 		
+		joining 												DONE 
+		group and aggregations
+
+
+static void Main2(string[] args)
+        {
+            Console.WriteLine("Now we will learning all possibility of queries");
+            PersonDbContext dbContext = new PersonDbContext();
+            dbContext.Database.Log = Console.Write;
+            //all drivers
+            var allDrivers = (from d in dbContext.Drivers
+                              select d).ToList();
+            Console.WriteLine("\n\nDrivers:");
+            allDrivers.ForEach(d => Console.WriteLine($"{d.DriverId},{d.DriverName},{d.DrivingLicenceNumber},{d.MobileNumber},{d.Username},****"));
+
+            //all cabs
+            var allCabs = (from c in dbContext.Cabs
+                              select c).ToList();
+            Console.WriteLine("\n\nCabs:");
+            allCabs.ForEach(c => Console.WriteLine($"{c.CabId},{c.CabType},{c.RegistrationNumber},{c.DriverId}"));
+
+            Console.WriteLine("\n\nCabs with Driver Name:");
+            allCabs.ForEach(c => Console.WriteLine($"{c.CabId},{c.CabType},{c.RegistrationNumber},{c.DriverId},{c.Driver.DriverName}"));
+
+            //karnataka drivers 
+            var karnatakaDrivers = (from d in dbContext.Drivers
+                                    join c in dbContext.Cabs on d.DriverId equals c.DriverId
+                                    where c.RegistrationNumber.StartsWith("KA")
+                                    select d).ToList();
+            Console.WriteLine("\n\nKarnataka Drivers:");
+            karnatakaDrivers.ForEach(d => Console.WriteLine($"{d.DriverId},{d.DriverName},{d.DrivingLicenceNumber},{d.MobileNumber},{d.Username},****"));
+            //max salary
+            var maxSalary = (from d in dbContext.Drivers
+                             select d.Salary).Max();
+            Console.WriteLine($"\n\nMax salary is {maxSalary}");
+
+            //min, max, avg, sum, count 
+            var salaries = (from d in dbContext.Drivers
+                            select d.Salary).ToList();
+            var aggregations = new { max = salaries.Max(),
+                min = salaries.Min(),
+                sum = salaries.Sum(),
+                avg = salaries.Average(),
+                count = salaries.Count()
+            };
+            Console.WriteLine($"\n\nAggregations:\n\n{aggregations.max},{aggregations.min},{aggregations.sum}, {aggregations.avg}, {aggregations.count}");
+
+            var driverNamesSalaryRegNo = (from d in dbContext.Drivers
+                                          join c in dbContext.Cabs on d.DriverId equals c.DriverId
+                                          select new { d.DriverName, 
+                                              d.Salary, 
+                                              c.RegistrationNumber }
+                                          ).ToList<dynamic>();
+            Console.WriteLine("\n\nDriver Names with Salary, Reg No:");
+            driverNamesSalaryRegNo.ForEach(d => Console.WriteLine($"{d.DriverName},{d.Salary},{d.RegistrationNumber}"));
+
+        }
