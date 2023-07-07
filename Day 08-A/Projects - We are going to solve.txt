@@ -1,0 +1,146 @@
+1. ASP.NET MVC Applications 								-- pages (presentation oriented)
+		Flight System Application 
+				- Admin App 							http://www.fsa.com/admin
+						-- Flight Management around Login System 
+						-- Login System 
+				- Customer App (Ticket Booking App) 	http://www.fsa.com 
+						-- Customer Subscription/Registration, Customer Login 
+						-- Search Flight, Pick Flight, Go For Booking -> Payment(Empty) 
+								-> Redirection from Payment Completion to Booking Completion 
+						-- Bookings History / Past Transactions 
+								-- Cancel 
+								-- Print Tickets 
+		Cab System Application 
+				-- Driver App 
+						-- Driver Registration ---> Add Driver{+Username, Password}, Add Cab 
+						-- Driver Login 
+						-- View Profile 
+						-- Past Trips | On Trip | Accept Next Coming Trip | Start Trip 
+				-- Customer App 
+						-- Customer Registartion --> Add Customer{+Useraname, Password} 
+						-- Customer Login 
+						-- Do Booking 
+								- Type of the cab 
+								- System will suggest the cab/driver
+								-	Waiting for the driver 
+										OTP will be displayed here
+						-- Past Bookings 	
+	 
+	 ASP.NET Web API 													-- services / data (service oriented)
+	  Flight System Backend App 	
+				- Flight Table/Model - CRUD operations 
+				
+		To test APIs, Postman software - download, install 		
+	
+	Angular 
+		Front End App 
+				- Flight CRUD operations --> replaces what we tested using POSTman 
+2. Prerequisites: HTML, CSS, Javascript 
+
+
+HTML : Content Presentation
+	- Pages (Web Page | Web Document) - Web Site -> Form Submission -> Web App / database (Dynamic Pages) 
+	- paragraphs, headings, bullets, numbering, table (rows/columns), images, bookmarks, hyperlinks,
+		form controls/elements, dialogues (modal/non-modal)
+CSS: Beautician for HTML Content | Look and Feel 
+	- styles 
+			color, background, font, text, box (padding, margin, border)
+	- applying style -> element category, individual/specific element, 
+											class of elements 
+	- where we present style: 
+			internal style sheet	
+					<Style>
+					inline style sheet using 'style' attribute of the element/tag 
+			external style sheet (highly preferred)
+						linked using <Link/>
+						imported using @import in <Style>
+		
+	Basics of HTML, CSS, 
+			Style Frameworks - Bootstrap is the most used look and feel and widgets driver framework
+			Bootstrap is used almost 100% in the industry 
+
+
+Answer for What MVC?
+
+
+	MVC - Model View Controller Design Pattern 
+	ASP MVC - Framework for MVC Pattern 
+	
+	
+	Web Forms app 
+			View <-->			 Model 							<--> Controller 
+										Business Logic Layer 
+										Data Access Layer 
+							
+		  Presentation Layer 					 
+			
+			
+			Presenation -> BLL -> DAL 
+			
+			three tier architecture 
+							 
+			Presenation -> Application Layer(EJB if java) -> BLL -> DAL 				 
+			
+M odels: Classes that represent the data of the application and that use validation logic to enforce business rules for that data.
+V iews: Template files that your application uses to dynamically generate HTML responses.
+C ontrollers: Classes that handle incoming browser requests, retrieve model data, and then specify view templates that return a response to the browser.			
+			
+Models. Model objects are the parts of the application that implement the logic for the application s data domain. Often, model objects retrieve and store model state in a database. For example, a Product object might retrieve information from a database, operate on it, and then write updated information back to a Products table in SQL Server.
+
+Views. Views are the components that display the application s user interface (UI). Typically, this UI is created from the model data. An example would be an edit view of a Products table that displays text boxes, drop-down lists, and check boxes based on the current state of a Products object.
+
+Controllers. Controllers are the components that handle user interaction, work with the model, and ultimately select a view to render that displays UI. In an MVC application, the view only displays information; the controller handles and responds to user input and interaction. For example, the controller handles query-string values, and passes these values to the model, which in turn queries the database by using the values.			
+								
+------------------------------------------------
+			Web Application 
+				- a collection of urls 
+				- wrt web form  - Add Flight (AddFlight.aspx) - FlightApp
+				
+				http://localhost:80/FlightApp/AddFlight.aspx
+				
+				- ASP MVC 
+					Controller : FlightController
+											- Controller Action
+													List 	 - Display All Flights 
+													Create - New Flight Form 
+													Create | HTTP POST - Handler for New Flight Form 
+													Edit 	 | Edit Flight Form 
+													Edit | HTTP POST - Handler for Edit Flight Form 		
+													Delete 
+													Index    -> Redirected to List Action 
+				
+				http://localhost:80/Flight/																		List 
+				http://localhost:80/Flight/Index 			-- Default Action 			List 
+				http://localhost:80/Flight/List 
+				
+				http://localhost:80/Flight/Create 
+				http://localhost:80/Flight/Edit/10  
+				http://localhost:80/Flight/Delete  
+				http://localhost:80/Flight/Search/Bangalore/Trichy  - Required Customized Route 
+
+For our home controller,
+				http://localhost:80/Home/
+				http://localhost:80/Home/Index 
+				http://localhost:80/Home/About 
+				http://localhost:80/Home/Contact 
+				
+In ASP MVC, entry point from the browser is:
+	Controller -> Actions
+
+	View -> Folder for the Controller -> Dynamic Pages (Razor Pages) == .cshtml pages 
+	
+	Razor : Template Engine for ASP MVC 
+				
+  			
+			
+			
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 

@@ -1,0 +1,175 @@
+-----------------------------------------------------------------
+ASP MVC App with following 
+	Home Controller with Index, Contact, About actions 
+	Hello Controller with SayHi, SayGoodMorning, SayHello actions
+	Login Controller to use Session based login to secure the pages: Login, Logout - Session Based
+		SayHi, SayHello	are secured with login 
+		SayGoodMorning is allowed without login 
+		
+	HTML, CSS 
+-----------------------------------------------------------------	
+
+***********How to change the https based defuault url to http url:***********
+if url is not running in the browser.
+
+Right Click Project in Solution Explorer -> Properties -> 
+Left Side Pick "Web" Section -> In Project Url Box
+  rename "https://localhost:44300/" as "http://localhost:44300/"
+	ie "https" as "http" in the URL
+	
+-----------------------------------------------------------------	
+http://localhost:44300/Home/Index
+http://localhost:44300/Home/About
+http://localhost:44300/Home/Contact
+
+These three URLs are programmed as ASP MVC Web Application 
+They all have the below pattern:
+
+http://localhost:44300/{controller}/{action}
+
+Where this pattern is defined?
+
+In the route configuration.
+
+Where is "route configuration"?
+
+App_Start -> RouteConfig.cs -> class RouteConfig -> RegisterRoutes
+	-> the method call "routes.MapRoute()" defines the defualt route pattern.
+	
+the defualt route pattern contains three component:
+		controller 		-- Default Controller is "Home"
+		action 				-- Default Action is "Index" for every controller 
+		id 			--- optional 
+		
+		
+Shall we create "HelloController"?
+
+Right Click folder "Controller" in the Solution Explorer -> 
+"Add" option -> "Controller..." -> "Add New Scaffolded Item" we got 
+-> Pick "MVC 5 Controller Empty" -> "Add" command 
+-> Controllername as "HelloController" 
+-> "Add" command 
+
+
+We got "HelloController.cs" class in the Solution Explorer->"Controllers" folder 
+			Here, "Index" is default method we got 
+We got also "Hello" folder in the Solution Explorer->"Views" folder
+			
+			
+Now, "Index" action is renamed as "SayHi" in the "HelloController" 
+
+ie We develope three pages as three actions named SayHi, SayGoodMorning, SayHello
+We will have the following three URLS for our three actions:
+
+
+http://localhost:44300/Hello/SayHi
+http://localhost:44300/Hello/SayGoodmorning
+http://localhost:44300/Hello/SayHello
+
+All the above three url patters already defined as "Default Route".
+So No need to define "Custom Route".
+
+We defined the below HelloController:
+-------------------------------------------------------------
+public class HelloController : Controller
+{
+		// GET: Hello
+		public ActionResult SayHi()
+		{
+				return View();
+		}
+		public ActionResult SayGoodMorning()
+		{
+				return View();
+		}
+		public ActionResult SayHello()
+		{
+				return View();
+		}
+}
+-------------------------------------------------------------
+
+Now, attach the view to each of "SayHi", "SayGoodMorning", "SayHello" controller actions.
+
+We should have :
+			Views->Hello->SayHi.cshtml
+			Views->Hello->SayGoodMorning.cshtml
+			Views->Hello->SayHello.cshtml
+			
+How can I do them?
+		Right Click the Action "SayHi" -> Pick the first option "Add View..."
+		-> Add New Scaffoled Item Window appeared 
+		-> Pick "MVC 5 View" 
+		-> "Add" command 
+		-> 	"Add View" window appeared 
+		-> Give "View name" as "SayHi" 			!!!by default it is the action name 
+			 Template: Empty (without model)
+			 Tick the Use a layout page 
+		-> Add command 
+		
+We got now "SayHi.cshtml" inside "Views" -> "Hello" 
+There we have the code:
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+@{
+    ViewBag.Title = "SayHi";
+}
+
+<h2>SayHi</h2>		
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+
+*************************Say Hello******************************
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+@{
+    ViewBag.Title = "SayHello";
+}
+<h1>My Country, India</h1>
+<h2>My Country, India</h2>
+<h3>My Country, India</h3>
+<h4>My Country, India</h4>
+<h5>My Country, India</h5>
+<h6>My Country, India</h6>
+<p>
+    India, officially the Republic of India (ISO: Bhārat Gaṇarājya),[25] is a country in South Asia. It is the seventh-largest country by area; the most populous country as of June 1, 2023;[26][27] and from the time of its independence in 1947, the world's most populous democracy.[28][29][30] Bounded by the Indian Ocean on the south, the Arabian Sea on the southwest, and the Bay of Bengal on the southeast, it shares land borders with Pakistan to the west;[j] China, Nepal, and Bhutan to the north; and Bangladesh and Myanmar to the east. In the Indian Ocean, India is in the vicinity of Sri Lanka and the Maldives; its Andaman and Nicobar Islands share a maritime border with Thailand, Myanmar, and Indonesia.
+</p>
+<p>
+    Modern humans arrived on the Indian subcontinent from Africa no later than 55,000 years ago.[31][32][33] Their long occupation, initially in varying forms of isolation as hunter-gatherers, has made the region highly diverse, second only to Africa in human genetic diversity.[34] Settled life emerged on the subcontinent in the western margins of the Indus river basin 9,000 years ago, evolving gradually into the Indus Valley Civilisation of the third millennium BCE.[35] By 1200 BCE, an archaic form of Sanskrit, an Indo-European language, had diffused into India from the northwest.[36][37] Its evidence today is found in the hymns of the Rigveda. Preserved by an oral tradition that was resolutely vigilant, the Rigveda records the dawning of Hinduism in India.[38] The Dravidian languages of India were supplanted in the northern and western regions.[39] By 400 BCE, stratification and exclusion by caste had emerged within Hinduism,[40] and Buddhism and Jainism had arisen, proclaiming social orders unlinked to heredity.[41] Early political consolidations gave rise to the loose-knit Maurya and Gupta Empires based in the Ganges Basin.[42] Their collective era was suffused with wide-ranging creativity,[43] but also marked by the declining status of women,[44] and the incorporation of untouchability into an organised system of belief.[k][45] In South India, the Middle kingdoms exported Dravidian-languages scripts and religious cultures to the kingdoms of Southeast Asia.[46]
+</p>
+
+<ul style="list-style-type:circle;">
+    <li>President                 Droupadi Murmu</li>
+    <li>Vice President            Jagdeep Dhankhar</li>
+    <li>Prime Minister            Narendra Modi</li>
+    <li>Lok Sabha Speaker         Om Birla</li>
+    <li>Chief Justice             Dhananjaya Y. Chandrachud</li>
+</ul>
+
+<ol style="list-style-type:upper-roman">
+    <li>President                 Droupadi Murmu</li>
+    <li>Vice President            Jagdeep Dhankhar</li>
+    <li>Prime Minister            Narendra Modi</li>
+    <li>Lok Sabha Speaker         Om Birla</li>
+    <li>Chief Justice             Dhananjaya Y. Chandrachud</li>
+</ol>
+
+<dl>
+    <dt>President</dt>
+    <dd>Droupadi Murmu</dd>
+    <dt>Vice President</dt>
+    <dd>Jagdeep Dhankhar</dd>
+</dl>		
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			
+			
+		
+
+
+
+
+		
+		
