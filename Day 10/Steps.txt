@@ -1,0 +1,221 @@
+1. Construct the database 
+	Create each table one by one
+			- Parsed Syntax
+			- Manual verification
+			- sp_help  verification 
+			- SELECT query verification 
+			
+	Now, we have five tables in the database.
+	
+2.
+	I Create dotnet project 
+		C# based ASP.NET MVC Project under dotnet framework 
+		
+		Name: FlightSystemProject / FlightSystemSolution 
+		Folder Name: FlightReservationSystemWork 
+		
+		Project Template Choice : MVC Based ASP.NET App 
+				No Authentication
+				Tick in MVC (Disabled)
+				HTTPS is enabled 
+				
+	 II	
+			EntityFramework for the database tables of the database "FlightSystemDb"
+			
+			Name: FlightSystemModel
+			Model Content Template: EF Designer From Database 
+			New Connection...
+					DataSource: SqlClient 
+					Server Name: WINDOWS-9KGIOCA\MSSQLMAHESH
+					Authentication :Windows 
+					Database: FlightSystemDb 
+					TestConnection: succeeded
+			OK ...
+			Name of the DbContext / ConnectionString: FlightSystemDbContext
+			Next command 
+			Entity Framework 6.x 
+			Pick the Database Tables : All 
+			Namespace for Models: Models 
+			Finish
+			
+			Allow all the permissions required 
+			
+			
+Now we got the model classes:
+				Admin, Flight, Customer, Booking, BookingPassenger
+				FlightSystemDbContext class for dbsets of our model classes 
+				
+			III
+
+We have to define five "ViewModel"s classes under the folder "ViewModels":
+		View Model Classes: SearchFlight, InitBooking, FormBooking, FormBookingPassenger, FilterBooking
+		SearchFlight{Source, Destination, TravelDate}
+		InitBooking{FlightId, NumberOfPassengers}
+		FormBooking{FlightId, NumberOfPassengers, List<FormBookingPassenger>}
+					FormBookingPassenger{Sno, PassengerName, Age, IdCardDetails}
+		FilterBooking{FromDate, ToDate}
+		
+Now totally we have 10 POCO classes and 1 db context class.
+
+
+Now, check app is running or not.
+			if not runs in the https:
+					configure the project web "root url" 
+							"https" as "http" in the part of the url 
+			then try, our app has to run 
+				even after a. creation of the project 
+									 b. after edm for our model classes 
+									 c. after created the view model classes 
+									 
+			Now, our app is running without hassle.
+			
+IV Controller Actions 
+Prerequisite:
+	Create the automated code for 
+			"FlightsController" using EF to target CRUD operations 
+			using Add Item Template "MVC 5 Controller with views, using Entity Framework" 
+			
+			Name of the controller is "FlightsController" in the folder "Controllers"
+					Model class: Flight 
+					Data Context Class: FlightSystemDbContext 
+					tick in "Generate views"
+					tick in "Reference script libraries"
+					tick in Use a layout page 
+			Add command 
+
+Now we have, "FlightsController"
+with Views->Flights->Index,Create,Edit,Details,Delete
+
+Test it.
+
+Run the view "Index" by opening it.
+
+
+FlightManagementController
+		Index()																					Display All Flights 
+		Create ()			Create(formFlight):HttpPost 			New Flight 
+		Edit(id) 			Edit(formFlight):HttpPost 				Edit Flight 
+		Delete(id)
+AdminLoginController		
+		Index() 			Index(formAdmin):HttpPost 				Login 
+		Logout()			
+CusomterLoginController
+		Register()		Register(formCustomer):HttpPost 	Register 
+		Index()				Index(formCustomer):HttpPost 			Login 
+		Logout()
+Booking 
+		Index()				Index(formSearchFlight):HttpPost 				Search Flight 
+																										List of the flights with Pick option 
+		PassengersCount(flightNumber)		
+							PassengersCount(formInitBooking)	Number of Passengers and Next option 
+		DoBooking()		DoBooking(formBooking):HttpPost 	Fill Passengers +  Proceed Booking 
+		PastBookings() PastBookings(formFilterBookings):HttpPost   Search By From Date, To Date and Search 
+
+"FlightsController" will be used for reference purpose.
+
+
+Validate the model "Flight"			
+		class "Flight" 
+				- is created as model that means database object 
+				  it maps the table "Flight"
+			  - is used even as viewmodel for flight managment 
+						- business rules/validation login we put on fields of the Flight class 
+		
+```````````````````````````````````````````````````````
+public partial class Flight
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Flight()
+        {
+            this.Bookings = new HashSet<Booking>();
+        }
+    
+        public int FlightId { get; set; }
+
+        [Display(Name ="Flight Number#")]
+        [Required(ErrorMessage ="Please Enter Flight Number")]
+        [StringLength(20,MinimumLength=4,ErrorMessage = "Flight Number should be minumum 4 letters wide")]
+        public string FlightNumber { get; set; }
+
+
+        [Display(Name = "Airline Name")]
+        [Required(ErrorMessage = "Please Enter Airline Name")]
+        [StringLength(20, MinimumLength = 1, ErrorMessage = "Airline Name should be minumum 1 letters wide")]
+        public string AirlineName { get; set; }
+
+        [Display(Name = "Source")]
+        [Required(ErrorMessage = "Please Enter Source")]
+        [StringLength(20, MinimumLength = 1, ErrorMessage = "Source should be minumum 1 letters wide")]
+        public string Source { get; set; }
+
+        [Display(Name = "Destination")]
+        [Required(ErrorMessage = "Please Enter Destination")]
+        [StringLength(20, MinimumLength = 1, ErrorMessage = "Destination should be minumum 1 letters wide")]
+        public string Destination { get; set; }
+
+        [Display(Name = "Travel Date")]
+        [Required(ErrorMessage = "Please Enter Travel Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString="{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public System.DateTime TravelDate { get; set; }
+
+        [Display(Name = "Seats Capacity")]
+        [Required(ErrorMessage = "Please Enter Seats Capacity")]
+        [Range(20,1500, ErrorMessage="Seast Capacity should be between 20 and 1500")]
+        public int NumberOfSeats { get; set; }
+
+        [Display(Name = "Ticket Fare")]
+        [Required(ErrorMessage = "Please Enter Ticket Fare")]
+        [Range(1, 1000000, ErrorMessage = "Ticket Fare should be between 1 and 1,00,0000")]
+        public double TicketFare { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Booking> Bookings { get; set; }
+    }
+```````````````````````````````````````````````````````
+
+Validations, Display Login we applied for the Flight Data/Fields.		
+		
+					
+
+```````````````````````````````````````````````````````			
+@model IEnumerable<FlightSystemProject.Models.Flight>
+@{
+    ViewBag.Title = "Display All Flights";
+}
+
+<h2>@ViewBag.Title</h2>
+<div><a href="/FlightManagement/Create" class="btn btn-primary">Create</a></div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Flight Number(Airline Name)</th>
+            <th>Source-Destination</th>
+            <th>Travel Date</th>
+            <th>Seats Capacity</th>
+            <th>Fare</th>
+            <th></th>
+        </tr>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.FlightNumber (@e.AirlineName)</td>
+                <td>@e.Source-@e.Destination</td>
+                <td>@e.TravelDate.ToString("dd-MMM-yyyy")</td>
+                <td>@e.NumberOfSeats</td>
+                <td>@e.TicketFare</td>
+                <td>
+                    <a href="/FlightManagement/Edit/@e.FlightId"  class="btn btn-info">Edit</a>
+                    <a href="/FlightManagement/Delete/@e.FlightId"  class="btn btn-warning">Delete</a>
+                </td>
+            </tr>
+        }
+    </thead>
+</table>
+```````````````````````````````````````````````````````
+
+			
+			
+			
+					
+					
