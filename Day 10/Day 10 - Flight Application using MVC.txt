@@ -1,0 +1,96 @@
+****Flight System Application**** 
+- Admin App 							http://www.fsa.com/admin
+		-- Flight Management around Login System 
+		-- Login System 
+- Customer App (Ticket Booking App) 	http://www.fsa.com 
+		-- Customer Subscription/Registration, Customer Login 
+		-- Search Flight, Pick Flight, Go For Booking -> Payment(Empty) 
+				-> Redirection from Payment Completion to Booking Completion 
+		-- Bookings History / Past Transactions 
+				-- Cancel 
+				-- Print Tickets
+--------------------------------------------------------------------------
+Database Table:
+		Admin: AdminId, Username, Password
+		Flight: FlightID, FlightNumber, AirlineName, Source, Destination, 
+						TravelDate, NumberOfSeats, TicketFare
+		Customer: CustomerId, Name, MobileNumber, Username, Password
+		Booking: BookingId, BookingNumber, BookingDate, TravelDate, NumberOfPassengers, BillAmount
+		BookingPassenger: BookingId, SerialNumber, TicketNumber, PassengerName, 
+					Age, IdCardDetails
+--------------------------------------------------------------------------
+Pages:
+	Base URL: http://localhost:51234/
+Flight Management Pages[3] / Actions[3]			FlightManagementController, AdminLoginController
+1. Flight List :		Display All Flights 
+	On "Delete" Command to delete the flight 
+2. Create Flight:
+	On "Create" Command from "Create Flight" Page 
+3. Edit Flight 	
+	On "Update" command from "Edit Flight" Page 
+Admin App Login Management 	Pages [1] / Action [2]
+4. Login:
+	"Login" command to get logged in [Session Based Login] 
+	"Logout" command in the logged in pages to get logged out 
+
+Cusomter App Pages [5+1] Actions [7]		-> CustomerLoginController, BookingController
+5. Customer Registration 																				i
+	"Register" command to get registered for flight ticket booking a 
+6. "Login" Page 												v 
+		Login command, Logout command 			g h 
+7. Ticket Booking 						
+	Page: Search Flight, 																				ii
+			By Source, Destination, Travel Date 				
+			"Search" command to display the list of the flights 			b
+			"Pick Flight" command,																		c
+			Picked Flight + Number Of Passengers [1][Change]				iii 
+					"Next" command 																		d 		
+	Page: Fill Details: 
+			"Proceed Booking" command to complete booking 					iii (+ 1)
+8. Transactions 																							iv 
+	Search Filter By "From" Date and "To" Date "Show Bookings" command  e
+--------------------------------------------------------------------------
+Booking Number, Ticket Number to get generated
+	Booking Number starts at "90100200"
+	Ticket Number is Booking Number + 2 Digit Serial Number ie "9010020001","9010020002", "9010020003"
+--------------------------------------------------------------------------
+		New MVC Application 			+ 		Home Controller (Generted)  				-- routes, bootstraps, custom styles, layout
+															+ 		CRUD Flight Controller (Generated)	-- reusable forms / tables HTML 
+--------------------------------------------------------------------------
+FlightManagementController
+		Index()																					Display All Flights 
+		Create ()			Create(formFlight):HttpPost 			New Flight 
+		Edit(id) 			Edit(formFlight):HttpPost 				Edit Flight 
+		Delete(id)
+AdminLoginController		
+		Index() 			Index(formAdmin):HttpPost 				Login 
+		Logout()			
+CusomterLoginController
+		Register()		Register(formCustomer):HttpPost 	Register 
+		Index()				Index(formCustomer):HttpPost 			Login 
+		Logout()
+Booking 
+		Index()				Index(formSearchFlight):HttpPost 				Search Flight 
+																										List of the flights with Pick option 
+		PassengersCount(flightNumber)		
+							PassengersCount(formInitBooking)	Number of Passengers and Next option 
+		DoBooking()		DoBooking(formBooking):HttpPost 	Fill Passengers +  Proceed Booking 
+		PastBookings() PastBookings(formFilterBookings):HttpPost   Search By From Date, To Date and Search 
+--------------------------------------------------------------------------		
+
+Model Classes: Admin, Flight, Customer, Booking, BookingPassenger
+View Model Classes: SearchFlight, InitBooking, FormBooking, FormBookingPassenger, FilterBooking
+
+--------------------------------------------------------------------------
+****Tables:****
+
+****Models:****
+
+****View Models:**** 
+
+****Controllers + Views:****
+
+****Routes Config + Custom Routes**** 
+--------------------------------------------------------------------------
+		
+		

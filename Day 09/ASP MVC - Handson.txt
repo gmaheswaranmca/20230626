@@ -165,9 +165,91 @@ There we have the code:
 </dl>		
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 			
-			
-		
+HTML	
+		paragraph, heading levels
+				<p> </p> 
+				<h1> </h1>
+				...
+				<h6> </h6>
+		bullets - unordered list 		disc / circle / square 
+				<ul>
+						<li> </li>
+						<li> </li>
+						...
+				</ul>
+		numbering - ordered list 		decimal / lower-alpha / upper-alpha / 
+																lower-roman / upper-roman / lower-latin / upper-latin
+				<ol>
+						<li> </li>
+						<li> </li>
+						...
+				</ol>
+		definition list  : definition term and definition description 
+				<dl>					
+					<dt></dt>
+					<dd></dd>		
+					
 
+		TABLE 
+				<table>
+						<thead>
+								<tr>
+										<th> </th>
+										<th> </th>
+										...
+								</tr>
+						</thead>
+						<tbody>
+								<tr>
+									<td> </td>
+									<td> </td>
+									..
+								</tr>
+						</tbody>
+					</table>
+			
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Example
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Example with styles applied:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Styles:
+	color/background:
+			color, background, background-color, background-image, 
+			background-repeat, background-position, 
+			background-attachment
+	font:
+			font, font-family, font-size, font-weight, font-
+	text:
+			text-align, text-decoration, text-indent,
+			vertical-align 
+	box:
+			border: 1px solid red;
+			border-width: 1px;
+			border-style: dashed;
+			border-color: red;
+			
+			...
+			margin: 1px 2px 3px 4px;
+			margin-left: 1px;
+			...
+			
+			padding: 1px 2px 3px 4px;
+			padding-left: 1px;
+			...
+			
+			
+			
+			
+			
+			
+	
 
 
 
