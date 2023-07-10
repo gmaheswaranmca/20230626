@@ -1,0 +1,64 @@
+﻿@model FlightSystemProject.ViewModels.InitBooking
+@{
+    ViewBag.Title = "Proceed Booking";
+}
+<div class="navbar">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Plan Trip", "Index", "Booking")</li>
+            <li>@Html.ActionLink("Past Bookings", "PastBookings", "Booking")</li>
+        </ul>
+    </div>
+</div>
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<table class="table table-bordered" style="margin-top:5px;">
+    <thead>
+        <tr>
+            <th>
+                Flight Number
+                (Airline Name)
+            </th>
+            <th>Source - Destination</th>
+            <th>Travel Date</th>
+            <th>Fare/Ticket</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td> @Html.DisplayFor(m => Model.SelectedFlight.FlightNumber) (@Html.DisplayFor(m => Model.SelectedFlight.AirlineName))</td>
+            <td>@Html.DisplayFor(m => Model.SelectedFlight.Source) - @Html.DisplayFor(m => Model.SelectedFlight.Destination)</td>
+            <td>@Html.DisplayFor(m => Model.SelectedFlight.TravelDate)</td>
+            <td>@Html.DisplayFor(m => Model.SelectedFlight.TicketFare)</td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+
+@using (Html.BeginForm())
+{
+    <span>
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.FlightId)
+    </span>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(m => m.NumberOfPassengers, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => Model.NumberOfPassengers, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.NumberOfPassengers, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Next" class="btn btn-primary col-md-12" />
+        </div>
+    </div>
+}
+
+

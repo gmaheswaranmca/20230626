@@ -69,7 +69,7 @@ CusomterLoginController
 		Register()		Register(formCustomer):HttpPost 	Register 
 		Index()				Index(formCustomer):HttpPost 			Login 
 		Logout()
-Booking 
+BookingController 
 		Index()				Index(formSearchFlight):HttpPost 				Search Flight 
 																										List of the flights with Pick option 
 		PassengersCount(flightNumber)		
@@ -80,6 +80,11 @@ Booking
 
 Model Classes: Admin, Flight, Customer, Booking, BookingPassenger
 View Model Classes: SearchFlight, InitBooking, FormBooking, FormBookingPassenger, FilterBooking
+		SearchFlight{Source, Destination, TravelDate}
+		InitBooking{FlightId, NumberOfPassengers}
+		FormBooking{FlightId, NumberOfPassengers, List<FormBookingPassenger>}
+					FormBookingPassenger{Sno, PassengerName, Age, IdCardDetails}
+		FilterBooking{FromDate, ToDate}
 
 --------------------------------------------------------------------------
 ****Tables:****

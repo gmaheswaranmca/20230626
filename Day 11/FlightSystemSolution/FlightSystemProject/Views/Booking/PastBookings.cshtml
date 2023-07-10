@@ -1,0 +1,108 @@
+﻿@model FlightSystemProject.ViewModels.FilterBooking
+@{
+    ViewBag.Title = "Past Bookings";
+}
+
+<div class="navbar">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Plan Trip", "Index", "Booking")</li>
+            <li>@Html.ActionLink("Past Bookings", "PastBookings", "Booking")</li>
+        </ul>
+    </div>
+</div>
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <span>@Html.AntiForgeryToken()</span>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(m => Model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => Model.FromDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => Model.FromDate, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => Model.ToDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => Model.ToDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => Model.ToDate, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-primary col-md-12" />
+        </div>
+    </div>
+}
+
+<p>@Model.bookings.Count</p>
+@if (Model.bookings.Count > 0)
+{
+    <div class="container">
+
+        @foreach (var e in Model.bookings)
+        {
+            <div class="container" style="border:1px dashed orange; padding: 5px;margin-top:10px;">
+                <div class="row">
+                    <div class="col-md-3">Booking#:</div>
+                    <div class="col-md-3">@e.BookingNumber</div>
+                    <div class="col-md-3">Booking Date:</div>
+                    <div class="col-md-3">@e.BookingDate.ToString("dd-MMM-yyyy")</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Flight#:</div>
+                    <div class="col-md-3">@e.Flight.FlightNumber</div>
+                    <div class="col-md-3">Trael Date:</div>
+                    <div class="col-md-3">@e.TravelDate.ToString("dd-MMM-yyyy")</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Source:</div>
+                    <div class="col-md-3">@e.Flight.Source</div>
+                    <div class="col-md-3">Destination:</div>
+                    <div class="col-md-3">@e.Flight.Destination</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Number Of Passengers:</div>
+                    <div class="col-md-3">@e.NumberOfPassengers</div>
+                    <div class="col-md-3">Bill Amount:</div>
+                    <div class="col-md-3">@e.BillAmount</div>
+                </div>
+
+
+
+                @foreach (var d in e.BookingPassengers)
+                {
+                    <div class="container" style="border:1px solid silver;width:85%;">
+
+                        <div class="row">
+                            <div class="col-md-12 text-center bg-warning text-primary">@d.SerialNumber</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">&nbsp;</div>
+                            <div class="col-md-2">Passenger Name:</div>
+                            <div class="col-md-3">@d.PassengerName</div>
+                            <div class="col-md-2">Ticket Number:</div>
+                            <div class="col-md-3">@d.TicketNumber</div>
+                            <div class="col-md-1">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1">&nbsp;</div>
+                            <div class="col-md-2">Age:</div>
+                            <div class="col-md-3">@d.Age</div>
+                            <div class="col-md-2">Id Card Details:</div>
+                            <div class="col-md-3">@d.IdCardDetails</div>
+                            <div class="col-md-1">&nbsp;</div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+}
+

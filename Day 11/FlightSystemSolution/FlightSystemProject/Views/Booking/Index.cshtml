@@ -1,0 +1,82 @@
+﻿@model FlightSystemProject.ViewModels.SearchFlight
+@{
+    ViewBag.Title = "Search Flight";
+}
+<div class="navbar">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Plan Trip", "Index", "Booking")</li>
+            <li>@Html.ActionLink("Past Bookings", "PastBookings", "Booking")</li>
+        </ul>
+    </div>
+</div>
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <span>@Html.AntiForgeryToken()</span>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Source, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Source, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Source, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Destination, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Destination, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Destination, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.TravelDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.TravelDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.TravelDate, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-primary col-md-12" />
+        </div>
+    </div>
+
+    
+}
+
+<h2>Search Results</h2>
+
+<table class="table table-bordered" style="margin-top:5px;">
+    <thead>
+        <tr>
+            <th>
+                Flight Number
+                (Airline Name)
+            </th>
+            <th>Source - Destination</th>
+            <th>Travel Date</th>
+            <th>Fare/Ticket</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model.SearchedFlights)
+        {
+            <tr>
+                <td> @Html.DisplayFor(m => e.FlightNumber) (@Html.DisplayFor(m => e.AirlineName))</td>
+                <td>@Html.DisplayFor(m => e.Source) - @Html.DisplayFor(m => e.Destination)</td>
+                <td>@Html.DisplayFor(m => e.TravelDate)</td>
+                <td>@Html.DisplayFor(m => e.TicketFare)</td>
+                <td>
+                    @Html.ActionLink("Pick",
+                    "PassengersCount", "Booking", new { flightId = e.FlightId },
+                    htmlAttributes: new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

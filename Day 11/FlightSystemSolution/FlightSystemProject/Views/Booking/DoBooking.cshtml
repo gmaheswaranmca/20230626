@@ -1,0 +1,101 @@
+﻿@model FlightSystemProject.ViewModels.FormBooking
+@{
+    ViewBag.Title = "Do Booking";
+}
+<div class="navbar">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Plan Trip", "Index", "Booking")</li>
+            <li>@Html.ActionLink("Past Bookings", "PastBookings", "Booking")</li>
+        </ul>
+    </div>
+</div>
+
+<h2>@ViewBag.Title  </h2>
+<hr />
+
+
+<table class="table table-bordered" style="margin-top:5px;">
+    <thead>
+        <tr>
+            <th>
+                Flight Number
+                (Airline Name)
+            </th>
+            <th>Source - Destination</th>
+            <th>Travel Date</th>
+            <th>Fare/Ticket</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td> @Html.DisplayFor(m => Model.SelectedFlight.FlightNumber) (@Html.DisplayFor(m => Model.SelectedFlight.AirlineName))</td>
+            <td>@Html.DisplayFor(m => Model.SelectedFlight.Source) - @Html.DisplayFor(m => Model.SelectedFlight.Destination)</td>
+            <td>@Html.DisplayFor(m => Model.SelectedFlight.TravelDate)</td>
+            <td>@Html.DisplayFor(m => Model.SelectedFlight.TicketFare)</td>
+
+        </tr>
+        <tr>
+            <td colspan="4">
+                Number Of Passengers: @Model.NumberOfPassengers
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+@using (Html.BeginForm())
+{
+    <span>
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => Model.FlightId)
+        @Html.HiddenFor(m => Model.NumberOfPassengers)
+    </span>
+
+    <table class="table table-bordered" style="margin-top:5px;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Passenger</th>
+                <th>Age</th>
+                <th>ID Card Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Age != null)
+            {
+                for (int I = 0; I < Model.Age.Length; I++)
+                {
+
+                    <tr>
+                        <td>@Model.Sno[I]</td>
+                        <td>@Model.PassengerName[I]</td>
+                        <td>@Model.Age[I]</td>
+                        <td>@Model.IdCardDetails[I]</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                foreach (var e in Model.passengers)
+                {
+                    <tr>
+                        <td><input type="hidden" name="Sno[]" value="@e.Sno" />@e.Sno</td>
+                        <td><input type="text" name="PassengerName[]" value="@e.PassengerName" /></td>
+                        <td><input type="text" name="Age[]" value="@e.Age" /></td>
+                        <td><input type="text" name="IdCardDetails[]" value="@e.IdCardDetails" /></td>
+                    </tr>
+                }
+
+                <tr>
+                    <td colspan="4">
+                        <input type="submit" value="Do Booking" class="btn btn-primary" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+

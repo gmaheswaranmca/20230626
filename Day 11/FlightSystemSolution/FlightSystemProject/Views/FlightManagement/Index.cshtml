@@ -1,0 +1,44 @@
+﻿@model IEnumerable<FlightSystemProject.Models.Flight>
+@{
+    ViewBag.Title = "Display All Flights";
+}
+
+<h2>@ViewBag.Title</h2>
+<div>@Html.ActionLink("Add New Flight",
+                    "Create", "FlightManagement", new { },
+                    htmlAttributes:new { @class= "btn btn-primary" })</div>
+<table class="table table-bordered" style="margin-top:5px;">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.FlightNumber) 
+               ( @Html.DisplayName("AirlineName") )</th>
+            <th>@Html.DisplayNameFor(m => m.Source) - 
+                @Html.DisplayNameFor(m => m.Destination)</th>
+            <th>@Html.DisplayNameFor(m => m.TravelDate)</th>
+            <th>@Html.DisplayNameFor(m => m.NumberOfSeats)</th>
+            <th>@Html.DisplayNameFor(m => m.TicketFare)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td> @Html.DisplayFor(m => e.FlightNumber) (@Html.DisplayFor(m => e.AirlineName))</td>
+                <td>@Html.DisplayFor(m => e.Source) - @Html.DisplayFor(m => e.Destination)</td>
+                <td>@Html.DisplayFor(m => e.TravelDate)</td>
+                <td>@Html.DisplayFor(m => e.NumberOfSeats)</td>
+                <td>@Html.DisplayFor(m => e.TicketFare)</td>
+                <td>
+                    @Html.ActionLink("Edit",
+                    "Edit", "FlightManagement", new { id = e.FlightId },
+                    htmlAttributes: new { @class = "btn btn-info" }) 
+                    @Html.ActionLink("Delete",
+                    "Delete", "FlightManagement", new { id = e.FlightId },
+                    htmlAttributes: new { @class = "btn btn-warning" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
